@@ -5,246 +5,573 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Portfolio for Meena Kannan, Lead Software Engineer specializing in cloud-native Java modernization, AI-augmented engineering, GovTech, fintech, and enterprise SaaS."
+      content="Meena Kannan portfolio: Lead Software Engineer focused on Java, Spring Boot, GovTech modernization, Kubernetes, Kafka, AWS, and AI-augmented engineering."
     />
     <title>Meena Kannan | Lead Software Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="Meena Kannan home">
-        <span class="prompt">mk</span><span class="cursor">_</span>
+    <div class="boot-screen" id="bootScreen" aria-label="Boot sequence">
+      <div class="boot-terminal">
+        <div class="terminal-titlebar">
+          <div class="traffic"><span></span><span></span><span></span></div>
+          <div class="title">boot://meena-portfolio</div>
+        </div>
+        <div class="boot-lines" id="bootLines"></div>
+        <div class="boot-progress"><span id="bootProgress"></span></div>
+      </div>
+    </div>
+    <div class="cursor-aura" id="cursorAura" aria-hidden="true"></div>
+    <canvas id="matrix" aria-hidden="true"></canvas>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#hero" aria-label="Meena Kannan home">
+        <span class="brand-mark">MK</span>
+        <span class="brand-path">~/portfolio</span>
       </a>
       <nav aria-label="Primary navigation">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#work">Work</a>
-        <a href="#contact">Contact</a>
+        <a href="#about">about</a>
+        <a href="#skills">skills</a>
+        <a href="#workflow">workflow</a>
+        <a href="#projects">projects</a>
+        <a href="#experience">experience</a>
+        <a href="#contact">contact</a>
       </nav>
+      <a class="resume-link" href="assets/MeenaKannan_Resume_2026.pdf" target="_blank" rel="noreferrer">
+        resume.pdf
+      </a>
     </header>
 
-    <main id="top">
-      <section class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow">Lead Software Engineer | Singapore and India</p>
-          <h1>Meena Kannan</h1>
-          <p class="hero-lede">
-            Cloud-native Java engineer modernising public-sector and enterprise platforms with
-            microservices, Kubernetes, event streaming, secure delivery, and practical AI-assisted engineering.
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#contact">Start a conversation</a>
-            <a class="button secondary" href="assets/MeenaKannan_Resume_2026.pdf" target="_blank" rel="noreferrer">
-              Download resume
-            </a>
+    <aside class="section-dots" aria-label="Section progress">
+      <a href="#hero" data-section-dot="hero" class="active"></a>
+      <a href="#about" data-section-dot="about"></a>
+      <a href="#skills" data-section-dot="skills"></a>
+      <a href="#workflow" data-section-dot="workflow"></a>
+      <a href="#projects" data-section-dot="projects"></a>
+      <a href="#experience" data-section-dot="experience"></a>
+      <a href="#contact" data-section-dot="contact"></a>
+    </aside>
+
+    <main>
+      <section id="hero" class="hero section-block">
+        <div class="landing-sequence reveal" aria-label="Landing boot status">
+          <span>PROFILE</span>
+          <strong>Meena Kannan - Lead Software Engineer</strong>
+          <em>Java, cloud modernization, GovTech delivery</em>
+        </div>
+
+        <div class="hero-inner">
+          <div class="hero-copy reveal">
+            <div class="status-pill">
+              <span></span>
+              senior engineer for production modernization
+            </div>
+            <p class="command blue">engineering brief / available worldwide</p>
+            <h1 class="glitch-title" data-text="Meena Kannan">
+              <span>Meena</span>
+              <span class="glow">Kannan</span>
+            </h1>
+            <div class="role-line">
+              <span class="prompt-symbol">&gt;</span>
+              <span>Lead Software Engineer / Modernization Lead</span>
+            </div>
+            <p class="comment">// Java | Spring | K8s | Kafka | AWS | AI</p>
+            <p class="hero-thesis">
+              Lead Software Engineer with nearly a decade of experience delivering Java, Spring Boot,
+              Kubernetes, Kafka, and secure cloud modernization for public-sector and enterprise platforms.
+            </p>
+
+            <div class="operator-rail" aria-label="Client value areas">
+              <span>production ownership</span>
+              <span>legacy modernization</span>
+              <span>secure delivery</span>
+              <span>team enablement</span>
+            </div>
+
+            <div class="value-row">
+              <div><strong>10y</strong><span>delivery arc</span></div>
+              <div><strong>LTA</strong><span>GovTech</span></div>
+              <div><strong>40%</strong><span>API call reduction</span></div>
+            </div>
+
+            <div class="landing-proof">
+              <div><span>current mission</span><strong>VRLS 2.0 modernization</strong></div>
+              <div><span>production mode</span><strong>SLA + UAT + secure releases</strong></div>
+              <div><span>next leverage</span><strong>Spring AI + MCP + Copilot workflows</strong></div>
+            </div>
+
+            <div class="hero-actions">
+              <a class="btn primary" href="#contact">Discuss role</a>
+              <a class="btn secondary" href="assets/MeenaKannan_Resume_2026.pdf" target="_blank" rel="noreferrer">
+                Download resume
+              </a>
+            </div>
           </div>
-          <div class="signal-row" aria-label="Portfolio highlights">
-            <span>9+ years experience</span>
-            <span>GovTech and fintech</span>
-            <span>Java 21 and Spring Boot 3</span>
+
+          <div class="terminal-wrap client-brief-wrap reveal">
+            <div class="client-brief" aria-label="Client engineering brief">
+              <div class="brief-topline">
+                <span>Client Brief</span>
+                <strong>Senior engineer for modernization programs</strong>
+              </div>
+
+              <div class="brief-lens" aria-label="Choose client priority">
+                <button class="active" type="button" data-brief-lens="modernize">Modernize</button>
+                <button type="button" data-brief-lens="stabilize">Stabilize</button>
+                <button type="button" data-brief-lens="ai">AI-enable</button>
+              </div>
+
+              <div class="brief-primary" id="briefPrimary">
+                <span id="briefEyebrow">Current focus</span>
+                <h2 id="briefTitle">LTA VRLS 2.0 modernization</h2>
+                <p id="briefText">
+                  Supporting Singapore transport licensing modernization across legacy knowledge recovery,
+                  Spring Boot services, cloud deployment, secure release practices, and team handover.
+                </p>
+              </div>
+
+              <div class="brief-grid" id="briefGrid">
+                <div>
+                  <span>Client confidence</span>
+                  <strong>Owns live systems</strong>
+                  <p>Comfortable with production support, UAT pressure, release controls, and domain-heavy workflows.</p>
+                </div>
+                <div>
+                  <span>Modern stack</span>
+                  <strong>Java + cloud native</strong>
+                  <p>Java 21, Spring Boot 3, Kubernetes, Kafka, Redis, KEDA, Istio, AWS GovCloud, and ArgoCD.</p>
+                </div>
+                <div>
+                  <span>Delivery style</span>
+                  <strong>Practical leadership</strong>
+                  <p>Documents decisions, mentors engineers, reviews code, and turns complex systems into repeatable delivery.</p>
+                </div>
+                <div>
+                  <span>AI readiness</span>
+                  <strong>Useful, not hype</strong>
+                  <p>Applies Spring AI, RAG, MCP, Claude API, and Copilot workflows where they improve engineering outcomes.</p>
+                </div>
+              </div>
+
+              <div class="brief-checklist" id="briefChecklist">
+                <div><span></span> Government and enterprise delivery experience</div>
+                <div><span></span> Secure CI/CD, code quality, and release governance</div>
+                <div><span></span> Strong bridge between legacy behavior and modern architecture</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <aside class="terminal-card" aria-label="Profile terminal">
-          <div class="terminal-top">
-            <span></span><span></span><span></span>
-            <strong>MeenaProfile.java</strong>
+        <div class="cipher-ribbon reveal" aria-hidden="true">
+          <div>
+            <span>kafka.stream("/vrls/events")</span>
+            <span>kubectl rollout status deployment/vrls-api</span>
+            <span>argocd app sync vrls-prod</span>
+            <span>mcp.call("review_service_contract")</span>
+            <span>spring.ai.rag.evaluate()</span>
           </div>
-          <pre id="typewriter" aria-live="polite"></pre>
-        </aside>
+        </div>
+
+        <div class="stats-grid reveal">
+          <div><strong>VRLS 2.0</strong><span>modernization lead</span></div>
+          <div><strong>8 modules</strong><span>legacy transfer</span></div>
+          <div><strong>Spring AI</strong><span>agentic engineering</span></div>
+          <div><strong>ArgoCD</strong><span>GitOps releases</span></div>
+        </div>
+
+        <a class="scroll-cue reveal" href="#about">
+          <span>scroll</span>
+          <strong>inspect dossier</strong>
+        </a>
       </section>
 
-      <section id="about" class="section band">
-        <div class="section-heading">
-          <p class="eyebrow">$ cat professional_summary.md</p>
-          <h2>Modernisation with production discipline.</h2>
+      <section id="about" class="section-block">
+        <div class="section-head reveal">
+          <h2>Engineering Profile</h2>
+          <p>Production-grade delivery for Singapore government agencies, AI analytics, legal tech, citizen portals, and enterprise systems.</p>
         </div>
-        <div class="about-grid">
-          <article class="about-panel">
+
+        <div class="about-layout">
+          <div class="profile-panel reveal" aria-label="Meena Kannan profile summary">
+            <div class="profile-panel-head">
+              <span>Lead Software Engineer</span>
+              <strong>Modernization, production delivery, and team enablement</strong>
+            </div>
+            <div class="profile-rows">
+              <div><span>Primary strength</span><strong>Java backend platforms that survive real production pressure.</strong></div>
+              <div><span>Best fit</span><strong>GovTech, fintech, enterprise modernization, AI-enabled engineering teams.</strong></div>
+              <div><span>How she leads</span><strong>Recover context, design service boundaries, secure the path, mentor the squad.</strong></div>
+            </div>
+            <div class="profile-stack">
+              <span>Java 21</span><span>Spring Boot 3</span><span>Kubernetes</span><span>Kafka</span><span>AWS GovCloud</span><span>Spring AI</span>
+            </div>
+          </div>
+
+          <div class="about-copy reveal">
             <p>
-              Meena is a Lead Software Engineer with 9+ years delivering production systems for Singapore
-              government agencies, fintech, legal tech, AI analytics, and enterprise SaaS. She currently leads
-              VRLS 2.0 at NCS for the Land Transport Authority, turning deep legacy-domain knowledge into a
-              Kubernetes-based microservices platform on AWS Government Cloud.
+              Meena leads VRLS 2.0 at NCS for Singapore's Land Transport Authority, modernizing a Java legacy platform
+              into Kubernetes-based microservices on AWS Government Cloud.
             </p>
             <p>
-              Her work sits at the intersection of Java architecture, secure cloud delivery, event-driven
-              platforms, and AI-augmented engineering. She brings the steady habits that matter in real systems:
-              ADRs, code reviews, UAT ownership, observability, SLA-aware support, and mentoring.
+              Her resume is strongest where many portfolios are thin: production support, UAT ownership, SLA-driven delivery,
+              ADRs, code reviews, service mesh security, observability, and squad enablement.
             </p>
+            <div class="terminal-output">
+              <span class="muted">Selected outcomes</span>
+              <strong>Legacy knowledge transfer unblocked VRLS 2.0 greenfield build</strong>
+              <strong>Angular migration reduced redundant API calls by about 40%</strong>
+              <strong>Kafka streams cut 15+ minute reporting delays to near real time</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="seniority" class="section-block">
+        <div class="section-head reveal">
+          <h2>What Makes Her Senior</h2>
+          <p>What makes Meena senior is judgment under production pressure, not just a long list of tools.</p>
+        </div>
+
+        <div class="seniority-grid">
+          <article class="seniority-card reveal">
+            <span>01</span>
+            <h3>Domain recovery</h3>
+            <p>Turns legacy behavior into executable knowledge before teams start rewriting critical workflows.</p>
+            <code>Signal: legacy context becomes delivery clarity</code>
           </article>
-          <div class="metrics-grid">
-            <div><strong>40%</strong><span>Fewer redundant Angular API calls</span></div>
-            <div><strong>15m+</strong><span>Batch delays cut to near real time</span></div>
-            <div><strong>8</strong><span>Core LTA modules documented for handover</span></div>
-            <div><strong>4</strong><span>AI and LLM specialisation tracks</span></div>
+          <article class="seniority-card reveal">
+            <span>02</span>
+            <h3>Architecture ownership</h3>
+            <p>Designs service boundaries, release paths, mesh controls, event flows, and rollback-safe delivery.</p>
+            <code>Signal: design decisions include operational impact</code>
+          </article>
+          <article class="seniority-card reveal">
+            <span>03</span>
+            <h3>Production nerve</h3>
+            <p>Understands SLAs, incidents, UAT, parallel runs, security scans, observability, and stakeholder reality.</p>
+            <code>Signal: calm execution when systems are live</code>
+          </article>
+          <article class="seniority-card reveal">
+            <span>04</span>
+            <h3>Team leverage</h3>
+            <p>Uses ADRs, mentoring, reviews, sprint leadership, and AI-assisted workflows to lift the whole squad.</p>
+            <code>Signal: seniority multiplies through the team</code>
+          </article>
+        </div>
+      </section>
+
+      <section id="skills" class="section-block band">
+        <div class="section-head center reveal">
+          <h2>Technical Capability</h2>
+          <p>Inspect the stack by capability area: backend, cloud, AI, frontend, and event-driven data systems.</p>
+        </div>
+
+        <div class="skill-tabs reveal" role="tablist" aria-label="Skill categories">
+          <button class="active" type="button" data-skill="backend">backend</button>
+          <button type="button" data-skill="cloud">cloud_devops</button>
+          <button type="button" data-skill="ai">ai_llm</button>
+          <button type="button" data-skill="frontend">frontend</button>
+          <button type="button" data-skill="data">messaging_data</button>
+        </div>
+
+        <div class="skill-grid reveal" id="skillGrid"></div>
+
+        <div class="skill-terminal reveal">
+          <span class="muted">Capability notes</span>
+          <p id="skillDetail">Backend selected: Java 21, Spring Boot 3.x, Spring Security, Hibernate/JPA, REST, SOAP, WebFlux, and Resilience4j.</p>
+        </div>
+      </section>
+
+      <section id="workflow" class="section-block">
+        <div class="section-head reveal">
+          <h2>Modernization Method</h2>
+          <p>How Meena moves legacy behavior into cloud-native production without losing domain truth, security, or delivery control.</p>
+        </div>
+
+        <div class="pipeline reveal">
+          <button class="pipeline-step active" data-workflow="0" type="button">
+            <span>01</span><strong>Recover</strong><small>legacy knowledge + UAT behavior</small>
+          </button>
+          <button class="pipeline-step" data-workflow="1" type="button">
+            <span>02</span><strong>Design</strong><small>bounded Spring services</small>
+          </button>
+          <button class="pipeline-step" data-workflow="2" type="button">
+            <span>03</span><strong>Stream</strong><small>Kafka, Redis, KEDA</small>
+          </button>
+          <button class="pipeline-step" data-workflow="3" type="button">
+            <span>04</span><strong>Secure</strong><small>Istio, Vault, Keycloak</small>
+          </button>
+          <button class="pipeline-step" data-workflow="4" type="button">
+            <span>05</span><strong>Ship</strong><small>ArgoCD, SAST, observability</small>
+          </button>
+        </div>
+
+        <div class="workflow-console reveal">
+          <div class="terminal-window">
+            <div class="terminal-titlebar">
+              <div class="traffic"><span></span><span></span><span></span></div>
+              <div class="title">pipeline.log</div>
+            </div>
+            <div class="workflow-detail">
+              <p class="command" id="workflowCommand">run recon --source legacy-vrls</p>
+              <h3 id="workflowTitle">Recover behavior before replacing systems.</h3>
+              <p id="workflowText">
+                Meena owned live VRLS legacy support and produced the knowledge base for 8 core licensing modules,
+                enabling the new VRLS 2.0 squad to move forward without prior domain knowledge.
+              </p>
+              <div class="progress-shell"><span id="workflowBar"></span></div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="skills" class="section">
-        <div class="section-heading">
-          <p class="eyebrow">$ ls -la /core_strengths</p>
-          <h2>Senior backend depth, cloud-native breadth.</h2>
+      <section id="warroom" class="section-block band">
+        <div class="section-head center reveal">
+          <h2>Production Judgment</h2>
+          <p>Representative scenarios that show how Meena thinks about incidents, migrations, and secure delivery.</p>
         </div>
-        <div class="skill-layout">
-          <div class="tabs" role="tablist" aria-label="Skill categories">
-            <button class="tab active" data-tab="backend" type="button">Backend</button>
-            <button class="tab" data-tab="cloud" type="button">Cloud</button>
-            <button class="tab" data-tab="ai" type="button">AI</button>
-            <button class="tab" data-tab="delivery" type="button">Delivery</button>
+
+        <div class="warroom-grid">
+          <div class="warroom-radar reveal" aria-label="Production radar">
+            <div class="radar-sweep"></div>
+            <span class="radar-node node-a">UAT</span>
+            <span class="radar-node node-b">SLA</span>
+            <span class="radar-node node-c">SAST</span>
+            <span class="radar-node node-d">RAG</span>
+            <strong>VRLS</strong>
           </div>
-          <div class="tab-panels">
-            <div class="tab-panel active" id="backend">
-              <h3>Java platform engineering</h3>
-              <p>Java 21, Spring Boot 3, Spring Security, Hibernate/JPA, WebFlux, REST, SOAP, Resilience4j.</p>
-              <div class="pill-row">
-                <span>Microservices</span><span>Event-driven design</span><span>Outbox pattern</span><span>Saga choreography</span>
-              </div>
-            </div>
-            <div class="tab-panel" id="cloud">
-              <h3>Kubernetes and AWS delivery</h3>
-              <p>AWS ECS, EKS, ALB, S3, RDS, CloudFront, API Gateway, Lambda, IAM, Docker, Kubernetes, Helm, Istio.</p>
-              <div class="pill-row">
-                <span>Government Cloud</span><span>NGINX Ingress</span><span>KEDA autoscaling</span><span>Cloudflare WAF</span>
-              </div>
-            </div>
-            <div class="tab-panel" id="ai">
-              <h3>AI-augmented engineering</h3>
-              <p>Spring AI, RAG pipelines, MCP, Claude API, embeddings, prompt engineering, tool orchestration, evaluation loops.</p>
-              <div class="pill-row">
-                <span>RAG evaluation</span><span>Copilot agentic workflows</span><span>MCP servers</span><span>PDPA-aware design</span>
-              </div>
-            </div>
-            <div class="tab-panel" id="delivery">
-              <h3>Secure DevSecOps</h3>
-              <p>ArgoCD, Jenkins, GitHub Actions, Terraform, Ansible, SonarQube, HP Fortify, Vault, Keycloak, OAuth2/OIDC.</p>
-              <div class="pill-row">
-                <span>GitOps</span><span>ADRs</span><span>UAT ownership</span><span>Mentoring</span>
-              </div>
-            </div>
+
+          <div class="runbook-stack reveal">
+            <article>
+              <span>incident_001</span>
+              <h3>Timeout cascade during peak renewals</h3>
+              <p>Reduce polling, add Kafka event flow, cache hot paths, autoscale on event pressure.</p>
+            </article>
+            <article>
+              <span>migration_014</span>
+              <h3>Angular legacy state drift</h3>
+              <p>Move to NgRx/RxJS patterns and cut redundant API calls by about 40%.</p>
+            </article>
+            <article>
+              <span>security_027</span>
+              <h3>GovCloud service-to-service trust</h3>
+              <p>Use Istio mTLS, Vault, Keycloak, Fortify, and SonarQube as release gates.</p>
+            </article>
           </div>
         </div>
       </section>
 
-      <section id="experience" class="section band">
-        <div class="section-heading">
-          <p class="eyebrow">$ git log --career --oneline</p>
-          <h2>Experience across citizen platforms, fintech, legal tech, and AI analytics.</h2>
+      <section id="projects" class="section-block band">
+        <div class="section-head center reveal">
+          <h2>Representative Work</h2>
+          <p>Selected systems from Meena's work history, framed by impact, domain, and engineering responsibility.</p>
         </div>
+
+        <div class="project-grid">
+          <article class="project-card reveal" data-project-card="vrls">
+            <div class="project-visual vrls">
+              <span>service mesh</span><span>events</span><span>govcloud</span>
+            </div>
+            <div class="project-body">
+              <small>GovTech modernization</small>
+              <h3>VRLS 2.0 modernization</h3>
+              <p>Spring Boot 3 microservices for vehicle registration, ownership transfer, road tax, and permits on AWS Government Cloud.</p>
+              <div class="tag-row"><span>Java 21</span><span>EKS</span><span>Kafka</span><span>Istio</span></div>
+              <button class="inspect-btn" type="button" data-project="vrls">View impact</button>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-project-card="retail-ai">
+            <div class="project-visual ai">
+              <span>inference</span><span>fallback</span><span>latency</span>
+            </div>
+            <div class="project-body">
+              <small>AI analytics</small>
+              <h3>Retail promotion forecasting</h3>
+              <p>Spring Boot services connecting retail feeds to AI inference endpoints, replacing batch polling with Kafka event streams.</p>
+              <div class="tag-row"><span>Spring Boot</span><span>Kafka</span><span>AWS Lambda</span><span>PostgreSQL</span></div>
+              <button class="inspect-btn" type="button" data-project="retail-ai">View impact</button>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-project-card="legal-ai">
+            <div class="project-visual legal">
+              <span>rules</span><span>ai output</span><span>audit</span>
+            </div>
+            <div class="project-body">
+              <small>Legal tech automation</small>
+              <h3>Legal View Bill Analyzer</h3>
+              <p>Microservice and Drools BRMS engine combining AI model output with legal expert rules for billing anomaly detection.</p>
+              <div class="tag-row"><span>MongoDB</span><span>Drools</span><span>REST</span><span>Jenkins</span></div>
+              <button class="inspect-btn" type="button" data-project="legal-ai">View impact</button>
+            </div>
+          </article>
+        </div>
+
+        <div class="project-inspector reveal" aria-live="polite">
+          <div class="terminal-window">
+            <div class="terminal-titlebar">
+              <div class="traffic"><span></span><span></span><span></span></div>
+              <div class="title">project-inspector</div>
+            </div>
+            <pre id="projectInspector">Selected work: VRLS 2.0 modernization
+Status: production modernization
+Impact: citizen-facing licensing workflows
+Stack: Java 21, Spring Boot 3, Kafka, EKS, Istio, ArgoCD
+Signal: production delivery, not demo code</pre>
+          </div>
+        </div>
+
+        <div class="ops-console reveal">
+          <div class="ops-line"><span>trace_id</span><strong>VRLS-2.0-4F3A</strong><em>healthy</em></div>
+          <div class="ops-line"><span>deploy</span><strong>main -> govcloud/prod</strong><em>gated</em></div>
+          <div class="ops-line"><span>security</span><strong>fortify + sonarqube + vault</strong><em>passed</em></div>
+          <div class="ops-line"><span>ai_assist</span><strong>copilot + spring_ai + mcp</strong><em>enabled</em></div>
+        </div>
+      </section>
+
+      <section id="experience" class="section-block">
+        <div class="section-head reveal">
+          <h2>Experience Timeline</h2>
+          <p>9+ years across GovTech, AI analytics, legal tech, housing portals, and banking systems.</p>
+        </div>
+
         <div class="timeline">
-          <article class="timeline-item current">
-            <span class="date">Dec 2023 - Present</span>
-            <h3>Lead Software Engineer, NCS Singapore</h3>
-            <p class="client">Client: Land Transport Authority</p>
-            <ul>
-              <li>Architects the Spring Boot 3 microservices backbone for VRLS 2.0 across registration, ownership transfer, road tax, and permits.</li>
-              <li>Implements Kubernetes service discovery, mTLS, traffic policy, AWS ALB, NGINX Ingress, Kafka streaming, Redis caching, and KEDA scaling.</li>
-              <li>Leads Angular 13 to 18 migration with NgRx and RxJS patterns, reducing redundant API calls by about 40%.</li>
-              <li>Standardises secure releases with ArgoCD GitOps, Jenkins, GitHub Actions, SonarQube, Fortify, Vault, and Keycloak.</li>
-            </ul>
+          <article class="timeline-item reveal current">
+            <div class="timeline-pin"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta">
+                <span>Dec 2023 - Present</span>
+                <strong>current</strong>
+              </div>
+              <h3>Lead Software Engineer - NCS Singapore</h3>
+              <p class="client">Client: Land Transport Authority</p>
+              <ul>
+                <li>Architects VRLS 2.0 Spring Boot 3 microservices on AWS Government Cloud.</li>
+                <li>Implements Istio, ALB, NGINX Ingress, Kafka, Redis, KEDA, ArgoCD, Vault, and Keycloak.</li>
+                <li>Rolls out Copilot agentic workflows and prototypes Spring AI, MCP, and Claude API integrations.</li>
+              </ul>
+            </div>
           </article>
-          <article class="timeline-item">
-            <span class="date">Dec 2021 - Dec 2023</span>
-            <h3>Application Consultant, NCS Singapore</h3>
-            <p class="client">Client: Land Transport Authority</p>
-            <ul>
-              <li>Owned the live VRLS legacy platform and created the knowledge base that enabled the VRLS 2.0 greenfield build.</li>
-              <li>Managed production support under GovTech incident-response expectations using Java, Spring MVC, Oracle DB, WebLogic, Kafka, and JMS.</li>
-            </ul>
+
+          <article class="timeline-item reveal">
+            <div class="timeline-pin"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta"><span>Dec 2021 - Dec 2023</span></div>
+              <h3>Application Consultant - NCS Singapore</h3>
+              <p class="client">Client: Land Transport Authority</p>
+              <ul>
+                <li>Owned live VRLS legacy support under GovTech incident-response expectations.</li>
+                <li>Created handover docs for 8 core modules and bridged UAT behavior into VRLS 2.0.</li>
+              </ul>
+            </div>
           </article>
-          <article class="timeline-item">
-            <span class="date">May 2021 - Nov 2021</span>
-            <h3>Senior Software Engineer, BlackStraw.AI</h3>
-            <p class="client">AI-powered retail analytics</p>
-            <ul>
-              <li>Built Spring Boot microservices connecting retail feeds to AI inference endpoints.</li>
-              <li>Replaced batch polling with Kafka event streams, cutting execution-reporting delays from 15+ minutes to near real time.</li>
-            </ul>
+
+          <article class="timeline-item reveal">
+            <div class="timeline-pin"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta"><span>May 2021 - Nov 2021</span></div>
+              <h3>Senior Software Engineer - BlackStraw.AI</h3>
+              <p class="client">AI-powered retail analytics</p>
+              <ul>
+                <li>Integrated AI/ML REST APIs with batching, fallback handling, and latency SLAs.</li>
+                <li>Cut reporting delays from 15+ minutes to near real time with Kafka event streams.</li>
+              </ul>
+            </div>
           </article>
-          <article class="timeline-item compact">
-            <span class="date">2016 - 2020</span>
-            <h3>Earlier engineering roles</h3>
-            <p class="client">HDB, Wolters Kluwer, SysArc Infomatix</p>
-            <p>Delivered citizen property portals, legal billing AI/rules systems, and banking loan lifecycle backends.</p>
+
+          <article class="timeline-item reveal">
+            <div class="timeline-pin"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta"><span>2016 - 2020</span></div>
+              <h3>HDB, Wolters Kluwer, SysArc Infomatix</h3>
+              <p class="client">Citizen portals, legal tech, banking systems</p>
+              <ul>
+                <li>Built property transaction portals, legal billing rules systems, and loan lifecycle backends.</li>
+              </ul>
+            </div>
           </article>
         </div>
       </section>
 
-      <section id="work" class="section">
-        <div class="section-heading">
-          <p class="eyebrow">$ find ./impact -type f</p>
-          <h2>Representative work.</h2>
+      <section id="ai" class="section-block">
+        <div class="section-head reveal">
+          <h2>AI-Enabled Engineering</h2>
+          <p>Meena's AI work is framed as engineering acceleration with evaluation, retrieval quality, and production-risk control.</p>
         </div>
-        <div class="work-grid">
-          <article class="work-card">
-            <span>GovTech</span>
-            <h3>Vehicle Registration and Licensing System 2.0</h3>
-            <p>Modernised a mission-critical public platform into independently deployable Spring Boot services on AWS Government Cloud.</p>
-            <div class="pill-row"><span>Java 21</span><span>EKS</span><span>Kafka</span><span>Istio</span></div>
-          </article>
-          <article class="work-card">
-            <span>AI Analytics</span>
-            <h3>Retail promotion forecasting platform</h3>
-            <p>Connected Spring Boot services with AI inference endpoints and Kafka streams for near-real-time execution visibility.</p>
-            <div class="pill-row"><span>Spring Boot</span><span>Kafka</span><span>AWS Lambda</span><span>PostgreSQL</span></div>
-          </article>
-          <article class="work-card">
-            <span>Legal Tech</span>
-            <h3>Legal View Bill Analyzer</h3>
-            <p>Built a microservice and Drools BRMS engine combining AI model output with expert legal rules for billing anomaly detection.</p>
-            <div class="pill-row"><span>MongoDB</span><span>Drools</span><span>REST</span><span>SonarQube</span></div>
-          </article>
-        </div>
-      </section>
 
-      <section class="section band">
-        <div class="section-heading">
-          <p class="eyebrow">$ cat certifications.yml</p>
-          <h2>Certification and continuous learning.</h2>
-        </div>
-        <div class="cert-grid">
-          <div>
-            <h3>Agile and professional</h3>
-            <p>PSM I, PSPO I, ICT Assessment Certification from NUS-ISS Singapore.</p>
+        <div class="ai-lab">
+          <div class="terminal-window reveal ai-terminal">
+            <div class="terminal-titlebar">
+              <div class="traffic"><span></span><span></span><span></span></div>
+              <div class="title">agent-lab.trace</div>
+            </div>
+            <div class="agent-trace">
+              <div><span>01</span><strong>ingest</strong><em>domain docs, ADRs, service contracts</em></div>
+              <div><span>02</span><strong>retrieve</strong><em>chunking, embeddings, relevance evaluation</em></div>
+              <div><span>03</span><strong>invoke</strong><em>MCP tools for backend context and code review</em></div>
+              <div><span>04</span><strong>guard</strong><em>PDPA-aware minimization, auditability, eval loops</em></div>
+            </div>
           </div>
-          <div>
-            <h3>AI, LLM, and cloud</h3>
-            <p>AI Fluency, Building with the Claude API, MCP Advanced Topics, AWS Machine Learning Foundations, AWS Cloud 101.</p>
-          </div>
-          <div>
-            <h3>Next targets</h3>
-            <p>AWS AI Practitioner, AWS ML Engineer Associate, Google Cloud Generative AI Leader, CKAD, Terraform Associate.</p>
+
+          <div class="ai-orbit reveal" aria-label="AI delivery flow">
+            <div class="orbit-core">AI<br />Lab</div>
+            <span class="orbit-node rag">RAG</span>
+            <span class="orbit-node mcp">MCP</span>
+            <span class="orbit-node eval">EVAL</span>
+            <span class="orbit-node java">JAVA</span>
           </div>
         </div>
       </section>
 
-      <section id="contact" class="section contact-section">
-        <div class="section-heading">
-          <p class="eyebrow">$ ./contact_meena.sh</p>
-          <h2>Available from Singapore or India for senior remote roles worldwide.</h2>
+      <section id="contact" class="section-block band">
+        <div class="section-head center reveal">
+          <h2>Contact</h2>
+          <p>Ready for senior Java, cloud modernization, GovTech, fintech, and AI-assisted engineering roles.</p>
         </div>
-        <div class="contact-grid">
-          <a href="mailto:meenakannan92@gmail.com">meenakannan92@gmail.com</a>
-          <a href="tel:+6587373057">+65 8737 3057</a>
-          <a href="tel:+919789302084">+91 97893 02084</a>
-          <a href="https://www.linkedin.com/in/meena-kannan-mk/" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a href="https://github.com/meenak95" target="_blank" rel="noreferrer">GitHub</a>
-          <a href="assets/MeenaKannan_Resume_2026.pdf" target="_blank" rel="noreferrer">Resume PDF</a>
+
+        <div class="contact-layout">
+          <div class="terminal-window reveal">
+            <div class="terminal-titlebar">
+              <div class="traffic"><span></span><span></span><span></span></div>
+              <div class="title">contact-terminal</div>
+            </div>
+            <div class="contact-terminal" id="contactTerminal"></div>
+          </div>
+
+          <div class="contact-cards reveal">
+            <a href="mailto:meenakannan92@gmail.com"><span>Email</span><strong>meenakannan92@gmail.com</strong></a>
+            <a href="tel:+6587373057"><span>Singapore</span><strong>+65 8737 3057</strong></a>
+            <a href="tel:+919789302084"><span>India</span><strong>+91 97893 02084</strong></a>
+            <a href="https://www.linkedin.com/in/meena-kannan-mk/" target="_blank" rel="noreferrer"><span>LinkedIn</span><strong>meena-kannan-mk</strong></a>
+            <a href="https://github.com/meenak95" target="_blank" rel="noreferrer"><span>GitHub</span><strong>github.com/meenak95</strong></a>
+            <a href="assets/MeenaKannan_Resume_2026.pdf" target="_blank" rel="noreferrer"><span>Resume</span><strong>download PDF</strong></a>
+          </div>
         </div>
       </section>
     </main>
 
+    <aside class="command-dock" aria-label="Interactive command console">
+      <div class="dock-output" id="dockOutput">
+        <div><span>system</span> type <strong>help</strong> then press Enter</div>
+      </div>
+      <form id="commandForm">
+        <label for="commandInput">meena@portfolio:~$</label>
+        <input id="commandInput" name="command" autocomplete="off" spellcheck="false" placeholder="help" />
+      </form>
+    </aside>
+
     <footer>
-      <span>Meena Kannan</span>
-      <a href="#top">Back to top</a>
+      <span>meena@portfolio:~$ echo "thanks for visiting"</span>
+      <a href="#hero">back_to_top</a>
     </footer>
 
     <script src="script.js"></script>
