@@ -30,9 +30,20 @@ const contactLines = [
   '> GitHub: github.com/meenak95',
   '',
   'meena@portfolio:~$ availability --status',
-  '> Status: open to senior remote roles worldwide',
-  '> Domains: GovTech, fintech, cloud modernization, AI delivery',
-  '> Location: Singapore / India',
+  '> Status: ✅ Open to senior remote roles worldwide',
+  '> Capacity: available Q3 2026 onwards',
+  '> Remote: fully available',
+  '> Timezone: SGT (GMT+8) / flexible overlap',
+  '> Start date: within 2–4 weeks',
+  '',
+  'meena@portfolio:~$ engagement --models',
+  '> Full-time: senior / lead engineer roles',
+  '> Contract: GovTech, fintech, cloud modernization',
+  '> Consulting: architecture review + AI enablement',
+  '',
+  'meena@portfolio:~$ response --guarantee',
+  '> Initial reply: within 24 hours',
+  '> Call availability: weekdays SGT morning / evening',
   '',
   'meena@portfolio:~$ _',
 ];
@@ -236,14 +247,25 @@ function typeContact() {
   if (!target) return;
   let index = 0;
 
+  function lineClass(line) {
+    if (line.startsWith('meena@')) return 'contact-line ct-prompt';
+    if (line.startsWith('>')) {
+      if (line.includes('✅')) return 'contact-line ct-success';
+      return 'contact-line ct-value';
+    }
+    if (line === '') return 'contact-line ct-spacer';
+    return 'contact-line ct-label';
+  }
+
   function tick() {
     if (index >= contactLines.length) return;
     const line = document.createElement('div');
-    line.className = 'contact-line';
+    line.className = lineClass(contactLines[index]);
     line.textContent = contactLines[index];
     target.appendChild(line);
+    target.scrollTop = target.scrollHeight;
     index += 1;
-    window.setTimeout(tick, index === 1 ? 700 : 170);
+    window.setTimeout(tick, index === 1 ? 700 : 155);
   }
 
   tick();
@@ -589,3 +611,50 @@ setupMatrix();
 setupCursorAura();
 setupCommandDock();
 setupClientLens();
+
+/* ============================================================
+   CONTACT FORM HANDLER
+   ============================================================ */
+function setupContactForm() {
+  const form = document.querySelector('#contactForm');
+  const btn = document.querySelector('#cfpSubmitBtn');
+  const success = document.querySelector('#cfpSuccess');
+  if (!form || !btn || !success) return;
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const name = form.querySelector('#cf-name').value.trim();
+    const email = form.querySelector('#cf-email').value.trim();
+    const message = form.querySelector('#cf-message').value.trim();
+
+    if (!name || !email || !message) return;
+
+    btn.disabled = true;
+    btn.classList.add('submitting');
+    success.classList.remove('visible');
+
+    // Simulate send (replace with actual endpoint / mailto fallback)
+    window.setTimeout(() => {
+      btn.disabled = false;
+      btn.classList.remove('submitting');
+
+      // Open mailto as real send fallback
+      const company = form.querySelector('#cf-company').value.trim();
+      const type = form.querySelector('#cf-type').value;
+      const subject = encodeURIComponent('Portfolio Inquiry' + (company ? ' — ' + company : ''));
+      const body = encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}\nType: ${type || 'N/A'}\n\n${message}`
+      );
+      window.open(`mailto:meenakannan92@gmail.com?subject=${subject}&body=${body}`, '_blank');
+
+      success.textContent = '✅ Opening your email client — message ready to send!';
+      success.classList.add('visible');
+      form.reset();
+
+      window.setTimeout(() => success.classList.remove('visible'), 7000);
+    }, 900);
+  });
+}
+
+setupContactForm();
