@@ -2924,3 +2924,9 @@ footer {
   scrollbar-width: thin;
   scrollbar-color: rgba(34, 197, 94, 0.3) transparent;
 }
+
+.deploy-stamp {
+  color: var(--green);
+  font-size: 0.72rem;
+  opacity: 0.6;
+}
