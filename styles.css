@@ -2930,3 +2930,177 @@ footer {
   font-size: 0.72rem;
   opacity: 0.6;
 }
+
+/* ============================================================
+   FLOATING SOCIAL BUTTONS (copied from Anup's portfolio)
+   Fixed bottom-right stack: WhatsApp, LinkedIn, GitHub, Email
+   ============================================================ */
+
+.float-social {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.fsb {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 200ms ease;
+  cursor: pointer;
+}
+
+.fsb svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Tooltip label */
+.fsb-label {
+  position: absolute;
+  right: calc(100% + 0.65rem);
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.88);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.35rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 160ms ease, transform 160ms ease;
+  transform: translateY(-50%) translateX(6px);
+}
+
+.fsb:hover .fsb-label {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.fsb:hover {
+  transform: scale(1.12) translateY(-2px);
+}
+
+/* WhatsApp - green, bottom (primary) */
+.fsb-whatsapp {
+  background: #22c55e;
+  color: #001507;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+  animation: whatsappPulse 2.5s cubic-bezier(0.66, 0, 0, 1) infinite;
+}
+.fsb-whatsapp:hover {
+  box-shadow: 0 0 28px rgba(34, 197, 94, 0.7);
+  animation: none;
+}
+
+@keyframes whatsappPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); }
+  70%  { box-shadow: 0 0 0 12px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* LinkedIn - blue */
+.fsb-linkedin {
+  background: #0a66c2;
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(10, 102, 194, 0.4);
+}
+.fsb-linkedin:hover {
+  box-shadow: 0 0 24px rgba(10, 102, 194, 0.65);
+}
+
+/* GitHub - dark with green glow (matching Anup exactly) */
+.fsb-github {
+  background: #161b22;
+  color: #c0d5c9;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.2), inset 0 0 10px rgba(34, 197, 94, 0.08);
+}
+.fsb-github:hover {
+  box-shadow: 0 0 22px rgba(34, 197, 94, 0.45), inset 0 0 12px rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+}
+
+/* Email - purple */
+.fsb-email {
+  background: rgba(192, 132, 252, 0.12);
+  color: #c084fc;
+  border: 1px solid rgba(192, 132, 252, 0.45);
+  box-shadow: 0 4px 18px rgba(192, 132, 252, 0.18);
+}
+.fsb-email:hover {
+  box-shadow: 0 0 24px rgba(192, 132, 252, 0.45);
+  background: rgba(192, 132, 252, 0.2);
+}
+
+/* Entrance animation - buttons slide in from right */
+.fsb:nth-child(1) { animation: fbSlideIn 0.5s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.fsb:nth-child(2) { animation: fbSlideIn 0.5s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.fsb:nth-child(3) { animation: fbSlideIn 0.5s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.fsb:nth-child(4) { animation: fbSlideIn 0.5s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes fbSlideIn {
+  from { opacity: 0; transform: translateX(40px) scale(0.8); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+/* ============================================================
+   SECTION NAV DOTS (copied from Anup's left-side dots)
+   ============================================================ */
+
+.section-dots {
+  position: fixed;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sdot {
+  width: 0.5rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background: #374151;
+  transition: background 300ms ease, height 300ms ease,
+              box-shadow 300ms ease, transform 300ms ease;
+  display: block;
+}
+
+.sdot:hover {
+  background: #6b7280;
+  transform: scaleY(1.15);
+}
+
+.sdot.active {
+  background: #22c55e;
+  height: 2.5rem;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5),
+              0 0 20px rgba(34, 197, 94, 0.3),
+              0 0 30px rgba(34, 197, 94, 0.1);
+}
+
+/* Hide dots on small screens (Anup does hidden lg:flex) */
+@media (max-width: 1024px) {
+  .section-dots { display: none; }
+}
+
+/* On small screens move float buttons slightly in */
+@media (max-width: 480px) {
+  .float-social { bottom: 1.2rem; right: 1rem; }
+  .fsb { width: 2.6rem; height: 2.6rem; }
+  .fsb svg { width: 1.05rem; height: 1.05rem; }
+}
