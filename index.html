@@ -17,6 +17,10 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- Matrix animated background (from Anup's portfolio) -->
+    <div class="matrix-bg-wrap" aria-hidden="true">
+      <div class="matrix-bg"></div>
+    </div>
     <div class="boot-screen" id="bootScreen" aria-label="Boot sequence">
       <div class="boot-terminal">
         <div class="terminal-titlebar">
@@ -34,8 +38,7 @@
 
     <header class="topbar">
       <a class="brand" href="#hero" aria-label="Meena Kannan home">
-        <span class="brand-mark">MK</span>
-        <span class="brand-path">~/portfolio</span>
+        <span class="brand-mark">&lt;MeenaPortfolio/&gt;</span>
       </a>
       <nav aria-label="Primary navigation">
         <a href="#about">about</a>
@@ -45,9 +48,10 @@
         <a href="#experience">experience</a>
         <a href="#contact">contact</a>
       </nav>
-      <a class="resume-link" href="assets/MeenaKannan_Resume_2026.pdf" target="_blank" rel="noreferrer">
-        resume.pdf
-      </a>
+      <div class="topbar-right">
+        <span class="whoami-tag">$ whoami</span>
+        <a class="resume-link" href="assets/MeenaKannan_Resume_2026.pdf" target="_blank" rel="noreferrer">resume.pdf</a>
+      </div>
     </header>
 
     <aside class="section-dots" aria-label="Section progress">

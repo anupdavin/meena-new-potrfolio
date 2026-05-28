@@ -686,3 +686,34 @@ function setupSectionDots() {
 }
 
 setupSectionDots();
+
+/* ============================================================
+   NAVBAR — scrolled class + active link (Anup's pattern)
+   ============================================================ */
+function setupNavbar() {
+  const topbar = document.querySelector('.topbar');
+  if (!topbar) return;
+
+  // Scrolled state — darkens background slightly
+  window.addEventListener('scroll', () => {
+    topbar.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // Active nav link via IntersectionObserver
+  const navLinks = document.querySelectorAll('nav a');
+  const sections = document.querySelectorAll('section[id]');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { threshold: 0.35, rootMargin: '-60px 0px' });
+
+  sections.forEach(s => observer.observe(s));
+}
+
+setupNavbar();
