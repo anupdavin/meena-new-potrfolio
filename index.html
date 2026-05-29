@@ -5,668 +5,650 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Meena Kannan portfolio: Lead Software Engineer focused on Java, Spring Boot, GovTech modernization, Kubernetes, Kafka, AWS, and AI-augmented engineering."
+      content="Meena Kannan portfolio — Lead Software Engineer for Java, Spring Boot, cloud modernization, GovTech delivery, Kafka, Kubernetes, and AI-assisted engineering."
     />
     <title>Meena Kannan | Lead Software Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #030712;
+        --bg-2: #06111f;
+        --panel: rgba(9, 18, 32, 0.78);
+        --panel-2: rgba(15, 23, 42, 0.9);
+        --line: rgba(148, 163, 184, 0.2);
+        --line-strong: rgba(45, 212, 191, 0.42);
+        --text: #eef7ff;
+        --muted: #a9b7ca;
+        --soft: #7c8ba1;
+        --green: #3ef0a5;
+        --cyan: #38d9ff;
+        --blue: #70a5ff;
+        --purple: #c084fc;
+        --amber: #facc15;
+        --shadow: 0 24px 80px rgba(0, 0, 0, 0.48);
+        --radius: 26px;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        min-width: 320px;
+        background:
+          radial-gradient(circle at 18% 8%, rgba(56, 217, 255, 0.18), transparent 34rem),
+          radial-gradient(circle at 82% 14%, rgba(62, 240, 165, 0.14), transparent 32rem),
+          radial-gradient(circle at 48% 48%, rgba(192, 132, 252, 0.11), transparent 34rem),
+          linear-gradient(135deg, var(--bg), var(--bg-2) 55%, #020617);
+        color: var(--text);
+        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background-image:
+          linear-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(148, 163, 184, 0.045) 1px, transparent 1px);
+        background-size: 58px 58px;
+        mask-image: linear-gradient(to bottom, black, transparent 88%);
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background: radial-gradient(circle at var(--mx, 50%) var(--my, 15%), rgba(62, 240, 165, 0.12), transparent 24rem);
+      }
+
+      a { color: inherit; text-decoration: none; }
+      button, input, textarea, select { font: inherit; }
+
+      .shell { width: min(1180px, calc(100% - 2rem)); margin: 0 auto; }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+        background: rgba(3, 7, 18, 0.78);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+
+      .nav-inner {
+        min-height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.72rem;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+      }
+
+      .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border: 1px solid var(--line-strong);
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(62, 240, 165, 0.2), rgba(56, 217, 255, 0.12));
+        color: var(--green);
+        box-shadow: 0 0 30px rgba(62, 240, 165, 0.22);
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: clamp(0.6rem, 1.7vw, 1.25rem);
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
+
+      nav a { transition: color 180ms ease; }
+      nav a:hover, nav a.active { color: var(--green); }
+
+      .nav-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        border: 1px solid var(--line-strong);
+        border-radius: 999px;
+        padding: 0.72rem 1rem;
+        color: #02130b;
+        background: linear-gradient(135deg, var(--green), var(--cyan));
+        font-weight: 900;
+        box-shadow: 0 14px 32px rgba(62, 240, 165, 0.18);
+      }
+
+      .hero {
+        position: relative;
+        min-height: calc(100svh - 76px);
+        display: grid;
+        align-items: center;
+        padding: clamp(4.5rem, 8vw, 7rem) 0 clamp(3rem, 6vw, 5rem);
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(310px, 0.8fr);
+        gap: clamp(2rem, 5vw, 4.8rem);
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        margin: 0 0 1.25rem;
+        border: 1px solid rgba(62, 240, 165, 0.28);
+        border-radius: 999px;
+        background: rgba(62, 240, 165, 0.08);
+        padding: 0.56rem 0.84rem;
+        color: var(--green);
+        font: 700 0.86rem/1 "JetBrains Mono", monospace;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 0.55rem;
+        aspect-ratio: 1;
+        border-radius: 999px;
+        background: var(--green);
+        box-shadow: 0 0 16px var(--green);
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 820px;
+        font-size: clamp(3.35rem, 8.4vw, 7.4rem);
+        line-height: 0.9;
+        letter-spacing: -0.09em;
+      }
+
+      .gradient-text {
+        display: block;
+        color: transparent;
+        background: linear-gradient(105deg, #fff, var(--green) 38%, var(--cyan) 66%, var(--purple));
+        -webkit-background-clip: text;
+        background-clip: text;
+        text-shadow: 0 0 42px rgba(62, 240, 165, 0.14);
+      }
+
+      .hero-subtitle {
+        max-width: 720px;
+        margin: 1.45rem 0 0;
+        color: #dbeafe;
+        font-size: clamp(1.14rem, 2vw, 1.45rem);
+        font-weight: 700;
+      }
+
+      .hero-copy {
+        max-width: 740px;
+        margin: 1.1rem 0 0;
+        color: var(--muted);
+        font-size: 1.04rem;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        margin-top: 2rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+        min-height: 52px;
+        border-radius: 999px;
+        padding: 0.9rem 1.2rem;
+        font-weight: 900;
+        transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+      }
+      .btn:hover { transform: translateY(-2px); }
+      .btn.primary { background: linear-gradient(135deg, var(--green), var(--cyan)); color: #03140d; box-shadow: 0 18px 42px rgba(62, 240, 165, 0.22); }
+      .btn.secondary { border: 1px solid var(--line); color: var(--text); background: rgba(15, 23, 42, 0.58); }
+      .btn.secondary:hover { border-color: var(--line-strong); }
+
+      .proof-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.8rem;
+        margin-top: 2rem;
+        max-width: 820px;
+      }
+      .proof-card {
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: rgba(15, 23, 42, 0.62);
+        padding: 1rem;
+      }
+      .proof-card strong { display: block; color: var(--text); font-size: 1.3rem; letter-spacing: -0.04em; }
+      .proof-card span { color: var(--soft); font-size: 0.86rem; }
+
+      .brief-card {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(62, 240, 165, 0.28);
+        border-radius: var(--radius);
+        background:
+          linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(8, 13, 24, 0.84)),
+          radial-gradient(circle at top right, rgba(56, 217, 255, 0.16), transparent 20rem);
+        box-shadow: var(--shadow);
+      }
+      .brief-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, transparent, rgba(62, 240, 165, 0.12), transparent);
+        transform: translateX(-100%);
+        animation: sheen 5s ease-in-out infinite;
+      }
+      .brief-top {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--line);
+        padding: 1rem 1.1rem;
+        color: var(--muted);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.84rem;
+      }
+      .brief-body { position: relative; padding: 1.45rem; }
+      .availability {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        border-radius: 999px;
+        background: rgba(62, 240, 165, 0.12);
+        color: var(--green);
+        padding: 0.42rem 0.65rem;
+        font-weight: 800;
+        font-size: 0.82rem;
+      }
+      .brief-body h2 { margin: 1rem 0 0.6rem; font-size: clamp(1.65rem, 3vw, 2.4rem); line-height: 1.08; letter-spacing: -0.06em; }
+      .brief-body p { margin: 0; color: var(--muted); }
+      .signal-list { display: grid; gap: 0.72rem; margin-top: 1.35rem; }
+      .signal {
+        display: grid;
+        grid-template-columns: 34px 1fr;
+        gap: 0.75rem;
+        align-items: start;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(2, 6, 23, 0.45);
+        padding: 0.9rem;
+      }
+      .signal b {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 12px;
+        background: rgba(56, 217, 255, 0.12);
+        color: var(--cyan);
+      }
+      .signal strong { display: block; color: var(--text); }
+      .signal span { color: var(--soft); font-size: 0.9rem; }
+
+      section { padding: clamp(4rem, 8vw, 6.5rem) 0; }
+      .section-head { max-width: 780px; margin-bottom: 2rem; }
+      .section-head.center { margin-inline: auto; text-align: center; }
+      .section-kicker { color: var(--green); font: 800 0.82rem/1 "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: 0.16em; }
+      h2 { margin: 0.6rem 0 0; font-size: clamp(2.2rem, 5vw, 4.2rem); line-height: 0.98; letter-spacing: -0.07em; }
+      .section-head p { color: var(--muted); font-size: 1.03rem; }
+
+      .capability-grid, .work-grid, .impact-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+      .card {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.72), rgba(2, 6, 23, 0.52));
+        padding: 1.3rem;
+        box-shadow: 0 18px 48px rgba(0,0,0,0.22);
+      }
+      .card:hover { border-color: rgba(62, 240, 165, 0.42); }
+      .card small { color: var(--green); font-family: "JetBrains Mono", monospace; font-weight: 800; }
+      .card h3 { margin: 0.55rem 0 0.5rem; font-size: 1.2rem; letter-spacing: -0.03em; }
+      .card p, .card li { color: var(--muted); }
+      .card ul { padding-left: 1.1rem; margin: 0.8rem 0 0; }
+      .tag-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem; }
+      .tag-row span { border: 1px solid rgba(56, 217, 255, 0.22); border-radius: 999px; padding: 0.34rem 0.55rem; color: #bff4ff; background: rgba(56, 217, 255, 0.06); font-size: 0.78rem; font-weight: 800; }
+
+      .timeline { display: grid; gap: 1rem; }
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 170px 1fr;
+        gap: 1rem;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(15, 23, 42, 0.55);
+        padding: 1.1rem;
+      }
+      .timeline-date { color: var(--green); font-family: "JetBrains Mono", monospace; font-weight: 800; }
+      .timeline-item h3 { margin: 0 0 0.35rem; font-size: 1.18rem; }
+      .timeline-item p { margin: 0; color: var(--muted); }
+
+      .contact-wrap {
+        display: grid;
+        grid-template-columns: minmax(0, 0.86fr) minmax(340px, 1fr);
+        gap: 1rem;
+        align-items: stretch;
+      }
+      .contact-panel {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(15, 23, 42, 0.7);
+        padding: 1.4rem;
+      }
+      .contact-list { display: grid; gap: 0.7rem; margin-top: 1.2rem; }
+      .contact-link {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(2, 6, 23, 0.45);
+        padding: 0.9rem;
+        color: var(--muted);
+      }
+      .contact-link strong { color: var(--text); word-break: break-word; }
+      form { display: grid; gap: 0.85rem; }
+      .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+      label { display: grid; gap: 0.38rem; color: var(--muted); font-size: 0.88rem; font-weight: 800; }
+      input, textarea, select {
+        width: 100%;
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        border-radius: 16px;
+        background: rgba(2, 6, 23, 0.62);
+        color: var(--text);
+        padding: 0.92rem 1rem;
+        outline: none;
+      }
+      textarea { min-height: 150px; resize: vertical; }
+      input:focus, textarea:focus, select:focus { border-color: var(--line-strong); box-shadow: 0 0 0 4px rgba(62, 240, 165, 0.08); }
+      .submit { border: 0; cursor: pointer; }
+      .form-note { min-height: 1.4rem; color: var(--green); font-weight: 800; }
+
+      .float-social {
+        position: fixed;
+        right: 1rem;
+        bottom: 1rem;
+        z-index: 40;
+        display: grid;
+        gap: 0.62rem;
+      }
+      .float-social a {
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        border: 1px solid var(--line-strong);
+        border-radius: 16px;
+        background: rgba(3, 7, 18, 0.84);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.28);
+        color: var(--green);
+        font-weight: 900;
+      }
+
+      footer { border-top: 1px solid var(--line); color: var(--soft); padding: 1.6rem 0; }
+      .footer-inner { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+      .reveal { opacity: 0; transform: translateY(22px); transition: opacity 650ms ease, transform 650ms ease; }
+      .reveal.visible { opacity: 1; transform: translateY(0); }
+      @keyframes sheen { 0%, 45% { transform: translateX(-110%); } 65%, 100% { transform: translateX(110%); } }
+
+      @media (max-width: 980px) {
+        nav { display: none; }
+        .hero-grid, .contact-wrap { grid-template-columns: 1fr; }
+        .capability-grid, .work-grid, .impact-grid { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 680px) {
+        .nav-cta { display: none; }
+        .proof-row, .capability-grid, .work-grid, .impact-grid, .timeline-item, .form-row { grid-template-columns: 1fr; }
+        h1 { font-size: clamp(3rem, 18vw, 4.8rem); }
+        .float-social { right: 0.65rem; bottom: 0.65rem; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * { animation: none !important; scroll-behavior: auto !important; transition: none !important; }
+      }
+    </style>
   </head>
   <body>
-    <!-- Matrix animated background (from Anup's portfolio) -->
-    <div class="matrix-bg-wrap" aria-hidden="true">
-      <div class="matrix-bg"></div>
-    </div>
-    <div class="boot-screen" id="bootScreen" aria-label="Boot sequence">
-      <div class="boot-terminal">
-        <div class="terminal-titlebar">
-          <div class="traffic"><span></span><span></span><span></span></div>
-          <div class="title">boot://meena-portfolio</div>
-        </div>
-        <div class="boot-lines" id="bootLines"></div>
-        <div class="boot-progress"><span id="bootProgress"></span></div>
-      </div>
-    </div>
-    <div class="cursor-aura" id="cursorAura" aria-hidden="true"></div>
-    <canvas id="matrix" aria-hidden="true"></canvas>
-    <div class="scanlines" aria-hidden="true"></div>
-    <div class="noise" aria-hidden="true"></div>
-
     <header class="topbar">
-      <a class="brand" href="#hero" aria-label="Meena Kannan home">
-        <span class="brand-mark">&lt;MeenaPortfolio/&gt;</span>
-      </a>
-      <nav aria-label="Primary navigation">
-        <a href="#about">about</a>
-        <a href="#skills">skills</a>
-        <a href="#workflow">workflow</a>
-        <a href="#projects">projects</a>
-        <a href="#experience">experience</a>
-        <a href="#contact">contact</a>
-      </nav>
-      <div class="topbar-right">
-        <span class="whoami-tag">$ whoami</span>
-        <a class="resume-link" href="assets/MeenaKannan_Resume_2026.pdf" target="_blank" rel="noreferrer">resume.pdf</a>
+      <div class="shell nav-inner">
+        <a class="brand" href="#home" aria-label="Meena Kannan home">
+          <span class="brand-mark">MK</span>
+          <span>Meena Kannan</span>
+        </a>
+        <nav aria-label="Primary navigation">
+          <a href="#capabilities">Capabilities</a>
+          <a href="#work">Work</a>
+          <a href="#experience">Experience</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a class="nav-cta" href="assets/MeenaKannan_Resume_2026.pdf" target="_blank" rel="noreferrer">Resume</a>
       </div>
     </header>
 
-    <aside class="section-dots" aria-label="Section progress">
-      <a href="#hero" data-section-dot="hero" class="active"></a>
-      <a href="#about" data-section-dot="about"></a>
-      <a href="#skills" data-section-dot="skills"></a>
-      <a href="#workflow" data-section-dot="workflow"></a>
-      <a href="#projects" data-section-dot="projects"></a>
-      <a href="#experience" data-section-dot="experience"></a>
-      <a href="#contact" data-section-dot="contact"></a>
-    </aside>
-
-    <main>
-      <section id="hero" class="hero section-block">
-        <div class="landing-sequence reveal" aria-label="Landing boot status">
-          <span>PROFILE</span>
-          <strong>Meena Kannan - Lead Software Engineer</strong>
-          <em>Java, cloud modernization, GovTech delivery</em>
-        </div>
-
-        <div class="hero-inner">
-          <div class="hero-copy reveal">
-            <div class="status-pill hero-enter" style="--enter-delay:0.15s">
-              <span></span>
-              senior engineer for production modernization
-            </div>
-            <p class="command blue hero-enter" style="--enter-delay:0.3s">engineering brief / available worldwide</p>
-            <h1 class="glitch-title hero-enter" style="--enter-delay:0.45s" data-text="Meena Kannan">
-              <span>Meena</span>
-              <span class="glow">Kannan</span>
-            </h1>
-            <div class="role-line hero-enter" style="--enter-delay:0.55s">
-              <span class="prompt-symbol">&gt;</span>
-              <span>Lead Software Engineer / Modernization Lead</span>
-            </div>
-            <p class="comment hero-enter" style="--enter-delay:0.62s">// Java | Spring | K8s | Kafka | AWS | AI</p>
-            <p class="hero-thesis hero-enter" style="--enter-delay:0.7s">
-              Lead Software Engineer with nearly a decade of experience delivering Java, Spring Boot,
-              Kubernetes, Kafka, and secure cloud modernization for public-sector and enterprise platforms.
-            </p>
-
-            <div class="operator-rail hero-enter" style="--enter-delay:0.8s" aria-label="Client value areas">
-              <span>production ownership</span>
-              <span>legacy modernization</span>
-              <span>secure delivery</span>
-              <span>team enablement</span>
-            </div>
-
-            <div class="value-row hero-enter" style="--enter-delay:0.88s">
-              <div><strong>10y</strong><span>delivery arc</span></div>
-              <div><strong>LTA</strong><span>GovTech</span></div>
-              <div><strong>40%</strong><span>API call reduction</span></div>
-            </div>
-
-            <div class="landing-proof hero-enter" style="--enter-delay:0.95s">
-              <div><span>current mission</span><strong>VRLS 2.0 modernization</strong></div>
-              <div><span>production mode</span><strong>SLA + UAT + secure releases</strong></div>
-              <div><span>next leverage</span><strong>Spring AI + MCP + Copilot workflows</strong></div>
-            </div>
-
-            <div class="hero-actions hero-enter" style="--enter-delay:1.05s">
-              <a class="btn primary" href="#contact">Discuss role</a>
-              <a class="btn secondary" href="assets/MeenaKannan_Resume_2026.pdf" target="_blank" rel="noreferrer">
-                Download resume
-              </a>
-            </div>
-          </div>
-
-          <div class="terminal-wrap client-brief-wrap reveal">
-            <div class="client-brief" aria-label="Client engineering brief">
-              <div class="brief-topline">
-                <span>Client Brief</span>
-                <strong>Senior engineer for modernization programs</strong>
-              </div>
-
-              <div class="brief-lens" aria-label="Choose client priority">
-                <button class="active" type="button" data-brief-lens="modernize">Modernize</button>
-                <button type="button" data-brief-lens="stabilize">Stabilize</button>
-                <button type="button" data-brief-lens="ai">AI-enable</button>
-              </div>
-
-              <div class="brief-primary" id="briefPrimary">
-                <span id="briefEyebrow">Current focus</span>
-                <h2 id="briefTitle">LTA VRLS 2.0 modernization</h2>
-                <p id="briefText">
-                  Supporting Singapore transport licensing modernization across legacy knowledge recovery,
-                  Spring Boot services, cloud deployment, secure release practices, and team handover.
-                </p>
-              </div>
-
-              <div class="brief-grid" id="briefGrid">
-                <div>
-                  <span>Client confidence</span>
-                  <strong>Owns live systems</strong>
-                  <p>Comfortable with production support, UAT pressure, release controls, and domain-heavy workflows.</p>
-                </div>
-                <div>
-                  <span>Modern stack</span>
-                  <strong>Java + cloud native</strong>
-                  <p>Java 21, Spring Boot 3, Kubernetes, Kafka, Redis, KEDA, Istio, AWS GovCloud, and ArgoCD.</p>
-                </div>
-                <div>
-                  <span>Delivery style</span>
-                  <strong>Practical leadership</strong>
-                  <p>Documents decisions, mentors engineers, reviews code, and turns complex systems into repeatable delivery.</p>
-                </div>
-                <div>
-                  <span>AI readiness</span>
-                  <strong>Useful, not hype</strong>
-                  <p>Applies Spring AI, RAG, MCP, Claude API, and Copilot workflows where they improve engineering outcomes.</p>
-                </div>
-              </div>
-
-              <div class="brief-checklist" id="briefChecklist">
-                <div><span></span> Government and enterprise delivery experience</div>
-                <div><span></span> Secure CI/CD, code quality, and release governance</div>
-                <div><span></span> Strong bridge between legacy behavior and modern architecture</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="cipher-ribbon reveal" aria-hidden="true">
+    <main id="home">
+      <section class="hero shell">
+        <div class="hero-grid">
           <div>
-            <span>kafka.stream("/vrls/events")</span>
-            <span>kubectl rollout status deployment/vrls-api</span>
-            <span>argocd app sync vrls-prod</span>
-            <span>mcp.call("review_service_contract")</span>
-            <span>spring.ai.rag.evaluate()</span>
-          </div>
-        </div>
-
-        <div class="stats-grid reveal">
-          <div><strong>VRLS 2.0</strong><span>modernization lead</span></div>
-          <div><strong>8 modules</strong><span>legacy transfer</span></div>
-          <div><strong>Spring AI</strong><span>agentic engineering</span></div>
-          <div><strong>ArgoCD</strong><span>GitOps releases</span></div>
-        </div>
-
-        <a class="scroll-cue reveal" href="#about">
-          <span>scroll</span>
-          <strong>inspect dossier</strong>
-        </a>
-      </section>
-
-      <section id="about" class="section-block">
-        <div class="section-head reveal">
-          <h2>Engineering Profile</h2>
-          <p>Production-grade delivery for Singapore government agencies, AI analytics, legal tech, citizen portals, and enterprise systems.</p>
-        </div>
-
-        <div class="about-layout">
-          <div class="profile-panel reveal" aria-label="Meena Kannan profile summary">
-            <div class="profile-panel-head">
-              <span>Lead Software Engineer</span>
-              <strong>Modernization, production delivery, and team enablement</strong>
+            <p class="eyebrow reveal">Lead Software Engineer · Singapore · Remote-ready</p>
+            <h1 class="reveal">Meena builds <span class="gradient-text">production-grade platforms.</span></h1>
+            <p class="hero-subtitle reveal">Java, Spring Boot, Kubernetes, Kafka, GovTech modernization, and practical AI-assisted engineering.</p>
+            <p class="hero-copy reveal">A senior engineer trusted with live systems, legacy-to-cloud modernization, secure release paths, and delivery under real UAT, SLA, and stakeholder pressure. The value is simple: less chaos, clearer architecture, safer releases.</p>
+            <div class="hero-actions reveal">
+              <a class="btn primary" href="#contact">Start a conversation</a>
+              <a class="btn secondary" href="assets/MeenaKannan_Resume_2026.pdf" target="_blank" rel="noreferrer">Download resume</a>
+              <a class="btn secondary" href="https://www.linkedin.com/in/meena-kannan-mk/" target="_blank" rel="noreferrer">LinkedIn</a>
             </div>
-            <div class="profile-rows">
-              <div><span>Primary strength</span><strong>Java backend platforms that survive real production pressure.</strong></div>
-              <div><span>Best fit</span><strong>GovTech, fintech, enterprise modernization, AI-enabled engineering teams.</strong></div>
-              <div><span>How she leads</span><strong>Recover context, design service boundaries, secure the path, mentor the squad.</strong></div>
-            </div>
-            <div class="profile-stack">
-              <span>Java 21</span><span>Spring Boot 3</span><span>Kubernetes</span><span>Kafka</span><span>AWS GovCloud</span><span>Spring AI</span>
+            <div class="proof-row reveal" aria-label="Career proof points">
+              <div class="proof-card"><strong>9+ yrs</strong><span>enterprise delivery</span></div>
+              <div class="proof-card"><strong>LTA</strong><span>GovTech modernization</span></div>
+              <div class="proof-card"><strong>40%</strong><span>API call reduction</span></div>
             </div>
           </div>
 
-          <div class="about-copy reveal">
-            <p>
-              Meena leads VRLS 2.0 at NCS for Singapore's Land Transport Authority, modernizing a Java legacy platform
-              into Kubernetes-based microservices on AWS Government Cloud.
-            </p>
-            <p>
-              Her resume is strongest where many portfolios are thin: production support, UAT ownership, SLA-driven delivery,
-              ADRs, code reviews, service mesh security, observability, and squad enablement.
-            </p>
-            <div class="terminal-output">
-              <span class="muted">Selected outcomes</span>
-              <strong>Legacy knowledge transfer unblocked VRLS 2.0 greenfield build</strong>
-              <strong>Angular migration reduced redundant API calls by about 40%</strong>
-              <strong>Kafka streams cut 15+ minute reporting delays to near real time</strong>
+          <aside class="brief-card reveal" aria-label="Recruiter snapshot">
+            <div class="brief-top"><span>candidate.snapshot</span><span>ready=true</span></div>
+            <div class="brief-body">
+              <span class="availability">● Open to senior roles</span>
+              <h2>Best fit: teams modernizing serious backend systems.</h2>
+              <p>GovTech, fintech, cloud migration, high-volume backend platforms, integration-heavy systems, and teams adopting AI without turning delivery into hype.</p>
+              <div class="signal-list">
+                <div class="signal"><b>01</b><div><strong>Modernization ownership</strong><span>Legacy behavior recovery, service boundaries, cloud-native rollout, and release governance.</span></div></div>
+                <div class="signal"><b>02</b><div><strong>Production nerve</strong><span>Comfortable with live support, incidents, UAT pressure, quality gates, and stakeholder reality.</span></div></div>
+                <div class="signal"><b>03</b><div><strong>AI-ready engineer</strong><span>Spring AI, RAG, MCP, Claude API, and Copilot workflows used as practical engineering leverage.</span></div></div>
+              </div>
             </div>
-          </div>
+          </aside>
         </div>
       </section>
 
-      <section id="seniority" class="section-block">
-        <div class="section-head reveal">
-          <h2>What Makes Her Senior</h2>
-          <p>What makes Meena senior is judgment under production pressure, not just a long list of tools.</p>
-        </div>
-
-        <div class="seniority-grid">
-          <article class="seniority-card reveal">
-            <span>01</span>
-            <h3>Domain recovery</h3>
-            <p>Turns legacy behavior into executable knowledge before teams start rewriting critical workflows.</p>
-            <code>Signal: legacy context becomes delivery clarity</code>
-          </article>
-          <article class="seniority-card reveal">
-            <span>02</span>
-            <h3>Architecture ownership</h3>
-            <p>Designs service boundaries, release paths, mesh controls, event flows, and rollback-safe delivery.</p>
-            <code>Signal: design decisions include operational impact</code>
-          </article>
-          <article class="seniority-card reveal">
-            <span>03</span>
-            <h3>Production nerve</h3>
-            <p>Understands SLAs, incidents, UAT, parallel runs, security scans, observability, and stakeholder reality.</p>
-            <code>Signal: calm execution when systems are live</code>
-          </article>
-          <article class="seniority-card reveal">
-            <span>04</span>
-            <h3>Team leverage</h3>
-            <p>Uses ADRs, mentoring, reviews, sprint leadership, and AI-assisted workflows to lift the whole squad.</p>
-            <code>Signal: seniority multiplies through the team</code>
-          </article>
-        </div>
-      </section>
-
-      <section id="skills" class="section-block band">
+      <section id="capabilities" class="shell">
         <div class="section-head center reveal">
-          <h2>Technical Capability</h2>
-          <p>Inspect the stack by capability area: backend, cloud, AI, frontend, and event-driven data systems.</p>
+          <span class="section-kicker">Capability map</span>
+          <h2>Senior where it matters.</h2>
+          <p>Not just a tool list. This is the operating profile recruiters and hiring managers need to understand quickly.</p>
         </div>
-
-        <div class="skill-tabs reveal" role="tablist" aria-label="Skill categories">
-          <button class="active" type="button" data-skill="backend">backend</button>
-          <button type="button" data-skill="cloud">cloud_devops</button>
-          <button type="button" data-skill="ai">ai_llm</button>
-          <button type="button" data-skill="frontend">frontend</button>
-          <button type="button" data-skill="data">messaging_data</button>
-        </div>
-
-        <div class="skill-grid reveal" id="skillGrid"></div>
-
-        <div class="skill-terminal reveal">
-          <span class="muted">Capability notes</span>
-          <p id="skillDetail">Backend selected: Java 21, Spring Boot 3.x, Spring Security, Hibernate/JPA, REST, SOAP, WebFlux, and Resilience4j.</p>
+        <div class="capability-grid">
+          <article class="card reveal"><small>Backend</small><h3>Java platform engineering</h3><p>Java 21, Spring Boot 3, Spring Security, Hibernate/JPA, REST, SOAP, WebFlux, Resilience4j, and integration-heavy service design.</p><div class="tag-row"><span>Java</span><span>Spring Boot</span><span>Security</span></div></article>
+          <article class="card reveal"><small>Cloud</small><h3>Cloud-native modernization</h3><p>Kubernetes, Docker, Helm, AWS GovCloud, EKS, ECS, ALB, Istio, Vault, Keycloak, ArgoCD, Jenkins, and GitHub Actions.</p><div class="tag-row"><span>K8s</span><span>AWS</span><span>GitOps</span></div></article>
+          <article class="card reveal"><small>Data flow</small><h3>Event-driven reliability</h3><p>Kafka, Kafka Streams, Redis, KEDA, IBM MQ, JMS, Oracle, PostgreSQL, MongoDB, Flyway, and timeout-conscious service patterns.</p><div class="tag-row"><span>Kafka</span><span>Redis</span><span>KEDA</span></div></article>
+          <article class="card reveal"><small>Frontend</small><h3>Enterprise UI delivery</h3><p>Angular 18, NgRx, RxJS, React, Next.js, JSF, PrimeFaces, GraphQL, and citizen-facing workflow optimization.</p><div class="tag-row"><span>Angular</span><span>RxJS</span><span>React</span></div></article>
+          <article class="card reveal"><small>AI</small><h3>AI-assisted engineering</h3><p>Spring AI, RAG pipelines, embeddings, MCP tool use, Claude API, prompt engineering, evaluation loops, and Copilot adoption.</p><div class="tag-row"><span>Spring AI</span><span>RAG</span><span>MCP</span></div></article>
+          <article class="card reveal"><small>Leadership</small><h3>Delivery multiplication</h3><p>ADRs, code reviews, mentoring, sprint leadership, documentation, handover playbooks, quality gates, and cross-team alignment.</p><div class="tag-row"><span>ADRs</span><span>Reviews</span><span>Mentoring</span></div></article>
         </div>
       </section>
 
-      <section id="workflow" class="section-block">
+      <section id="work" class="shell">
         <div class="section-head reveal">
-          <h2>Modernization Method</h2>
-          <p>How Meena moves legacy behavior into cloud-native production without losing domain truth, security, or delivery control.</p>
+          <span class="section-kicker">Representative work</span>
+          <h2>Built around business-critical systems.</h2>
+          <p>Selected work framed by impact, not just project names.</p>
         </div>
-
-        <div class="pipeline reveal">
-          <button class="pipeline-step active" data-workflow="0" type="button">
-            <span>01</span><strong>Recover</strong><small>legacy knowledge + UAT behavior</small>
-          </button>
-          <button class="pipeline-step" data-workflow="1" type="button">
-            <span>02</span><strong>Design</strong><small>bounded Spring services</small>
-          </button>
-          <button class="pipeline-step" data-workflow="2" type="button">
-            <span>03</span><strong>Stream</strong><small>Kafka, Redis, KEDA</small>
-          </button>
-          <button class="pipeline-step" data-workflow="3" type="button">
-            <span>04</span><strong>Secure</strong><small>Istio, Vault, Keycloak</small>
-          </button>
-          <button class="pipeline-step" data-workflow="4" type="button">
-            <span>05</span><strong>Ship</strong><small>ArgoCD, SAST, observability</small>
-          </button>
-        </div>
-
-        <div class="workflow-console reveal">
-          <div class="terminal-window">
-            <div class="terminal-titlebar">
-              <div class="traffic"><span></span><span></span><span></span></div>
-              <div class="title">pipeline.log</div>
-            </div>
-            <div class="workflow-detail">
-              <p class="command" id="workflowCommand">run recon --source legacy-vrls</p>
-              <h3 id="workflowTitle">Recover behavior before replacing systems.</h3>
-              <p id="workflowText">
-                Meena owned live VRLS legacy support and produced the knowledge base for 8 core licensing modules,
-                enabling the new VRLS 2.0 squad to move forward without prior domain knowledge.
-              </p>
-              <div class="progress-shell"><span id="workflowBar"></span></div>
-            </div>
-          </div>
+        <div class="work-grid">
+          <article class="card reveal"><small>GovTech modernization</small><h3>VRLS 2.0 modernization</h3><p>Spring Boot 3 microservices for vehicle registration, ownership transfer, road tax, permits, and licensing workflows on AWS Government Cloud.</p><ul><li>Recovered legacy knowledge for 8 core modules.</li><li>Introduced secure release and service-mesh patterns.</li><li>Supported UAT, SLA, production, and team handover.</li></ul><div class="tag-row"><span>Java 21</span><span>EKS</span><span>Kafka</span><span>Istio</span></div></article>
+          <article class="card reveal"><small>AI analytics</small><h3>Retail promotion forecasting</h3><p>Spring Boot services connecting retail feeds to AI inference endpoints, replacing batch-heavy flows with event-driven architecture.</p><ul><li>Reduced reporting delay from 15+ minutes to near real time.</li><li>Handled fallback, batching, and latency expectations.</li></ul><div class="tag-row"><span>Kafka</span><span>AWS Lambda</span><span>PostgreSQL</span></div></article>
+          <article class="card reveal"><small>Legal tech automation</small><h3>Legal View Bill Analyzer</h3><p>Microservice and Drools BRMS engine combining AI model output with legal expert rules for billing anomaly detection.</p><ul><li>Auditable decision logic for sensitive legal workflows.</li><li>Sub-500ms rule evaluation under production load.</li></ul><div class="tag-row"><span>Drools</span><span>MongoDB</span><span>REST</span></div></article>
         </div>
       </section>
 
-      <section id="warroom" class="section-block band">
+      <section class="shell">
         <div class="section-head center reveal">
-          <h2>Production Judgment</h2>
-          <p>Representative scenarios that show how Meena thinks about incidents, migrations, and secure delivery.</p>
+          <span class="section-kicker">Hiring signal</span>
+          <h2>Why the landing now works better.</h2>
+          <p>The first screen makes the role fit obvious in seconds, then backs it with proof.</p>
         </div>
-
-        <div class="warroom-grid">
-          <div class="warroom-radar reveal" aria-label="Production radar">
-            <div class="radar-sweep"></div>
-            <span class="radar-node node-a">UAT</span>
-            <span class="radar-node node-b">SLA</span>
-            <span class="radar-node node-c">SAST</span>
-            <span class="radar-node node-d">RAG</span>
-            <strong>VRLS</strong>
-          </div>
-
-          <div class="runbook-stack reveal">
-            <article>
-              <span>incident_001</span>
-              <h3>Timeout cascade during peak renewals</h3>
-              <p>Reduce polling, add Kafka event flow, cache hot paths, autoscale on event pressure.</p>
-            </article>
-            <article>
-              <span>migration_014</span>
-              <h3>Angular legacy state drift</h3>
-              <p>Move to NgRx/RxJS patterns and cut redundant API calls by about 40%.</p>
-            </article>
-            <article>
-              <span>security_027</span>
-              <h3>GovCloud service-to-service trust</h3>
-              <p>Use Istio mTLS, Vault, Keycloak, Fortify, and SonarQube as release gates.</p>
-            </article>
-          </div>
+        <div class="impact-grid">
+          <article class="card reveal"><small>01</small><h3>Clear positioning</h3><p>Lead Software Engineer for serious Java, cloud, GovTech, and modernization work. No vague portfolio fluff.</p></article>
+          <article class="card reveal"><small>02</small><h3>Fast recruiter scan</h3><p>Proof points, best-fit context, contact actions, and resume access are visible before the user scrolls.</p></article>
+          <article class="card reveal"><small>03</small><h3>Cleaner conversion</h3><p>The contact section turns form input into a ready-to-send email and keeps WhatsApp, LinkedIn, GitHub, and resume one tap away.</p></article>
         </div>
       </section>
 
-      <section id="projects" class="section-block band">
-        <div class="section-head center reveal">
-          <h2>Representative Work</h2>
-          <p>Selected systems from Meena's work history, framed by impact, domain, and engineering responsibility.</p>
-        </div>
-
-        <div class="project-grid">
-          <article class="project-card reveal" data-project-card="vrls">
-            <div class="project-visual vrls">
-              <span>service mesh</span><span>events</span><span>govcloud</span>
-            </div>
-            <div class="project-body">
-              <small>GovTech modernization</small>
-              <h3>VRLS 2.0 modernization</h3>
-              <p>Spring Boot 3 microservices for vehicle registration, ownership transfer, road tax, and permits on AWS Government Cloud.</p>
-              <div class="tag-row"><span>Java 21</span><span>EKS</span><span>Kafka</span><span>Istio</span></div>
-              <button class="inspect-btn" type="button" data-project="vrls">View impact</button>
-            </div>
-          </article>
-
-          <article class="project-card reveal" data-project-card="retail-ai">
-            <div class="project-visual ai">
-              <span>inference</span><span>fallback</span><span>latency</span>
-            </div>
-            <div class="project-body">
-              <small>AI analytics</small>
-              <h3>Retail promotion forecasting</h3>
-              <p>Spring Boot services connecting retail feeds to AI inference endpoints, replacing batch polling with Kafka event streams.</p>
-              <div class="tag-row"><span>Spring Boot</span><span>Kafka</span><span>AWS Lambda</span><span>PostgreSQL</span></div>
-              <button class="inspect-btn" type="button" data-project="retail-ai">View impact</button>
-            </div>
-          </article>
-
-          <article class="project-card reveal" data-project-card="legal-ai">
-            <div class="project-visual legal">
-              <span>rules</span><span>ai output</span><span>audit</span>
-            </div>
-            <div class="project-body">
-              <small>Legal tech automation</small>
-              <h3>Legal View Bill Analyzer</h3>
-              <p>Microservice and Drools BRMS engine combining AI model output with legal expert rules for billing anomaly detection.</p>
-              <div class="tag-row"><span>MongoDB</span><span>Drools</span><span>REST</span><span>Jenkins</span></div>
-              <button class="inspect-btn" type="button" data-project="legal-ai">View impact</button>
-            </div>
-          </article>
-        </div>
-
-        <div class="project-inspector reveal" aria-live="polite">
-          <div class="terminal-window">
-            <div class="terminal-titlebar">
-              <div class="traffic"><span></span><span></span><span></span></div>
-              <div class="title">project-inspector</div>
-            </div>
-            <pre id="projectInspector">Selected work: VRLS 2.0 modernization
-Status: production modernization
-Impact: citizen-facing licensing workflows
-Stack: Java 21, Spring Boot 3, Kafka, EKS, Istio, ArgoCD
-Signal: production delivery, not demo code</pre>
-          </div>
-        </div>
-
-        <div class="ops-console reveal">
-          <div class="ops-line"><span>trace_id</span><strong>VRLS-2.0-4F3A</strong><em>healthy</em></div>
-          <div class="ops-line"><span>deploy</span><strong>main -> govcloud/prod</strong><em>gated</em></div>
-          <div class="ops-line"><span>security</span><strong>fortify + sonarqube + vault</strong><em>passed</em></div>
-          <div class="ops-line"><span>ai_assist</span><strong>copilot + spring_ai + mcp</strong><em>enabled</em></div>
-        </div>
-      </section>
-
-      <section id="experience" class="section-block">
+      <section id="experience" class="shell">
         <div class="section-head reveal">
-          <h2>Experience Timeline</h2>
-          <p>9+ years across GovTech, AI analytics, legal tech, housing portals, and banking systems.</p>
+          <span class="section-kicker">Experience</span>
+          <h2>Timeline with delivery context.</h2>
         </div>
-
         <div class="timeline">
-          <article class="timeline-item reveal current">
-            <div class="timeline-pin"></div>
-            <div class="timeline-card">
-              <div class="timeline-meta">
-                <span>Dec 2023 - Present</span>
-                <strong>current</strong>
-              </div>
-              <h3>Lead Software Engineer - NCS Singapore</h3>
-              <p class="client">Client: Land Transport Authority</p>
-              <ul>
-                <li>Architects VRLS 2.0 Spring Boot 3 microservices on AWS Government Cloud.</li>
-                <li>Implements Istio, ALB, NGINX Ingress, Kafka, Redis, KEDA, ArgoCD, Vault, and Keycloak.</li>
-                <li>Rolls out Copilot agentic workflows and prototypes Spring AI, MCP, and Claude API integrations.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="timeline-item reveal">
-            <div class="timeline-pin"></div>
-            <div class="timeline-card">
-              <div class="timeline-meta"><span>Dec 2021 - Dec 2023</span></div>
-              <h3>Application Consultant - NCS Singapore</h3>
-              <p class="client">Client: Land Transport Authority</p>
-              <ul>
-                <li>Owned live VRLS legacy support under GovTech incident-response expectations.</li>
-                <li>Created handover docs for 8 core modules and bridged UAT behavior into VRLS 2.0.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="timeline-item reveal">
-            <div class="timeline-pin"></div>
-            <div class="timeline-card">
-              <div class="timeline-meta"><span>May 2021 - Nov 2021</span></div>
-              <h3>Senior Software Engineer - BlackStraw.AI</h3>
-              <p class="client">AI-powered retail analytics</p>
-              <ul>
-                <li>Integrated AI/ML REST APIs with batching, fallback handling, and latency SLAs.</li>
-                <li>Cut reporting delays from 15+ minutes to near real time with Kafka event streams.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="timeline-item reveal">
-            <div class="timeline-pin"></div>
-            <div class="timeline-card">
-              <div class="timeline-meta"><span>2016 - 2020</span></div>
-              <h3>HDB, Wolters Kluwer, SysArc Infomatix</h3>
-              <p class="client">Citizen portals, legal tech, banking systems</p>
-              <ul>
-                <li>Built property transaction portals, legal billing rules systems, and loan lifecycle backends.</li>
-              </ul>
-            </div>
-          </article>
+          <article class="timeline-item reveal"><div class="timeline-date">Dec 2023 — Present</div><div><h3>Lead Software Engineer · NCS Singapore</h3><p>Client: Land Transport Authority. Architects VRLS 2.0 Spring Boot microservices, Kubernetes delivery, Kafka workflows, service mesh controls, AI-assisted engineering workflows, and release governance.</p></div></article>
+          <article class="timeline-item reveal"><div class="timeline-date">Dec 2021 — Dec 2023</div><div><h3>Application Consultant · NCS Singapore</h3><p>Owned live VRLS legacy support, incident-response expectations, UAT behaviour mapping, and handover documentation for 8 core modules.</p></div></article>
+          <article class="timeline-item reveal"><div class="timeline-date">May 2021 — Nov 2021</div><div><h3>Senior Software Engineer · BlackStraw.AI</h3><p>Integrated AI/ML REST APIs, Kafka event streams, batching, fallback handling, and latency-sensitive analytics services.</p></div></article>
+          <article class="timeline-item reveal"><div class="timeline-date">2016 — 2020</div><div><h3>HDB, Wolters Kluwer, SysArc Infomatix</h3><p>Delivered citizen portals, legal billing automation, banking systems, property workflows, rules engines, and enterprise backends.</p></div></article>
         </div>
       </section>
 
-      <section id="ai" class="section-block">
-        <div class="section-head reveal">
-          <h2>AI-Enabled Engineering</h2>
-          <p>Meena's AI work is framed as engineering acceleration with evaluation, retrieval quality, and production-risk control.</p>
-        </div>
-
-        <div class="ai-lab">
-          <div class="terminal-window reveal ai-terminal">
-            <div class="terminal-titlebar">
-              <div class="traffic"><span></span><span></span><span></span></div>
-              <div class="title">agent-lab.trace</div>
-            </div>
-            <div class="agent-trace">
-              <div><span>01</span><strong>ingest</strong><em>domain docs, ADRs, service contracts</em></div>
-              <div><span>02</span><strong>retrieve</strong><em>chunking, embeddings, relevance evaluation</em></div>
-              <div><span>03</span><strong>invoke</strong><em>MCP tools for backend context and code review</em></div>
-              <div><span>04</span><strong>guard</strong><em>PDPA-aware minimization, auditability, eval loops</em></div>
-            </div>
-          </div>
-
-          <div class="ai-orbit reveal" aria-label="AI delivery flow">
-            <div class="orbit-core">AI<br />Lab</div>
-            <span class="orbit-node rag">RAG</span>
-            <span class="orbit-node mcp">MCP</span>
-            <span class="orbit-node eval">EVAL</span>
-            <span class="orbit-node java">JAVA</span>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="section-block band">
+      <section id="contact" class="shell">
         <div class="section-head center reveal">
-          <h2>Contact</h2>
-          <p>Ready for senior Java, cloud modernization, GovTech, fintech, and AI-assisted engineering roles.</p>
-          <div class="contact-quick-stats reveal">
-            <div class="cqs-item"><span class="cqs-icon">⚡</span><strong>24hr Response</strong></div>
-            <div class="cqs-item"><span class="cqs-icon">🌍</span><strong>Remote Ready</strong></div>
-            <div class="cqs-item"><span class="cqs-icon">✅</span><strong>Open to Roles</strong></div>
-          </div>
+          <span class="section-kicker">Contact</span>
+          <h2>Talk to Meena.</h2>
+          <p>For senior Java, cloud modernization, GovTech, fintech, and AI-assisted engineering roles.</p>
         </div>
-
-
-        <div class="contact-layout-v2">
-          <div class="terminal-window reveal">
-            <div class="terminal-titlebar">
-              <div class="traffic"><span></span><span></span><span></span></div>
-              <div class="title">contact-terminal</div>
+        <div class="contact-wrap">
+          <aside class="contact-panel reveal">
+            <h3>Direct channels</h3>
+            <p style="color: var(--muted); margin-top: 0;">Fastest route: email or WhatsApp. Recruiters can attach JD, salary range, remote expectation, and interview timeline.</p>
+            <div class="contact-list">
+              <a class="contact-link" href="mailto:meenakannan92@gmail.com?subject=Opportunity%20from%20Portfolio"><span>Email</span><strong>meenakannan92@gmail.com</strong></a>
+              <a class="contact-link" href="https://wa.me/6587373057?text=Hi%20Meena%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect." target="_blank" rel="noreferrer"><span>WhatsApp</span><strong>+65 8737 3057</strong></a>
+              <a class="contact-link" href="https://www.linkedin.com/in/meena-kannan-mk/" target="_blank" rel="noreferrer"><span>LinkedIn</span><strong>meena-kannan-mk</strong></a>
+              <a class="contact-link" href="https://github.com/meenak95" target="_blank" rel="noreferrer"><span>GitHub</span><strong>github.com/meenak95</strong></a>
+              <a class="contact-link" href="assets/MeenaKannan_Resume_2026.pdf" target="_blank" rel="noreferrer"><span>Resume</span><strong>Download PDF</strong></a>
             </div>
-            <div class="contact-terminal" id="contactTerminal"></div>
-          </div>
-
-          <div class="contact-form-panel reveal">
-            <div class="cfp-header">
-              <span class="cfp-icon">⚡</span>
-              <div>
-                <h3>Start a Conversation</h3>
-                <p>Tell me about the role — I respond within 24 hours</p>
+          </aside>
+          <div class="contact-panel reveal">
+            <h3>Send a structured inquiry</h3>
+            <form id="contactForm">
+              <div class="form-row">
+                <label>Name<input id="name" required placeholder="Your name" /></label>
+                <label>Company<input id="company" placeholder="Company / client" /></label>
               </div>
-            </div>
-            <form id="contactForm" class="cfp-form" novalidate>
-              <div class="cfp-row-2">
-                <div class="cfp-field">
-                  <label for="cf-name">$ name</label>
-                  <input id="cf-name" name="name" type="text" placeholder="Your name" required />
-                </div>
-                <div class="cfp-field">
-                  <label for="cf-company">$ company</label>
-                  <input id="cf-company" name="company" type="text" placeholder="Company (optional)" />
-                </div>
+              <div class="form-row">
+                <label>Email<input id="email" type="email" required placeholder="you@company.com" /></label>
+                <label>Opportunity<select id="type"><option>Senior engineer role</option><option>Lead engineer role</option><option>Contract / consulting</option><option>GovTech programme</option><option>AI-assisted delivery</option></select></label>
               </div>
-              <div class="cfp-field">
-                <label for="cf-email">$ email</label>
-                <input id="cf-email" name="email" type="email" placeholder="you@company.com" required />
-              </div>
-              <div class="cfp-field">
-                <label for="cf-type">$ opportunity_type</label>
-                <select id="cf-type" name="type">
-                  <option value="">Select type...</option>
-                  <option value="full-time">Full-time role</option>
-                  <option value="contract">Contract / consulting</option>
-                  <option value="govtech">GovTech programme</option>
-                  <option value="modernization">Modernization project</option>
-                  <option value="ai-delivery">AI-assisted delivery</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <div class="cfp-field">
-                <label for="cf-message">$ message</label>
-                <textarea id="cf-message" name="message" placeholder="Tell me about the role, timeline, and any specific engineering challenges..." required></textarea>
-              </div>
-              <button class="cfp-submit" type="submit" id="cfpSubmitBtn">
-                <span class="cfp-submit-text">✉️ &nbsp;Send Message</span>
-                <span class="cfp-submit-spinner" aria-hidden="true">⏳</span>
-              </button>
-              <div class="cfp-success" id="cfpSuccess" aria-live="polite"></div>
+              <label>Message<textarea id="message" required placeholder="Role, budget/range, remote expectation, timeline, and why Meena is a fit..."></textarea></label>
+              <button class="btn primary submit" type="submit">Prepare email to Meena</button>
+              <div class="form-note" id="formNote" aria-live="polite"></div>
             </form>
-          </div>
-        </div>
-
-        <div class="contact-cards-v2 reveal">
-          <a href="mailto:meenakannan92@gmail.com"><span>Email</span><strong>meenakannan92@gmail.com</strong></a>
-          <a href="tel:+6587373057"><span>Singapore</span><strong>+65 8737 3057</strong></a>
-          <a href="tel:+919789302084"><span>India</span><strong>+91 97893 02084</strong></a>
-          <a href="https://www.linkedin.com/in/meena-kannan-mk/" target="_blank" rel="noreferrer"><span>LinkedIn</span><strong>meena-kannan-mk</strong></a>
-          <a href="https://github.com/meenak95" target="_blank" rel="noreferrer"><span>GitHub</span><strong>github.com/meenak95</strong></a>
-          <a href="assets/MeenaKannan_Resume_2026.pdf" target="_blank" rel="noreferrer"><span>Resume</span><strong>download PDF</strong></a>
-        </div>
-
-        <div class="contact-footer-cta reveal">
-          <div class="cfc-inner">
-            <div class="cfc-code">System.out.println("Thanks for visiting my portfolio!");</div>
-            <p>Whether you need to <span class="green">modernize a legacy platform</span>, <span class="cyan">scale a GovTech system</span>, or <span class="purple">enable AI-assisted delivery</span> — let's talk.</p>
-            <div class="cfc-actions">
-              <a href="https://wa.me/6587373057" target="_blank" rel="noreferrer" class="cfc-btn-primary">💬 Quick Chat on WhatsApp</a>
-              <a href="#hero" class="cfc-btn-secondary">↑ Back to Top</a>
-            </div>
           </div>
         </div>
       </section>
     </main>
 
-    <aside class="command-dock" aria-label="Interactive command console">
-      <div class="dock-output" id="dockOutput">
-        <div><span>system</span> type <strong>help</strong> then press Enter</div>
-      </div>
-      <form id="commandForm">
-        <label for="commandInput">meena@portfolio:~$</label>
-        <input id="commandInput" name="command" autocomplete="off" spellcheck="false" placeholder="help" />
-      </form>
-    </aside>
+    <div class="float-social" aria-label="Quick contact actions">
+      <a href="mailto:meenakannan92@gmail.com?subject=Opportunity%20from%20Portfolio" aria-label="Email">@</a>
+      <a href="https://www.linkedin.com/in/meena-kannan-mk/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+      <a href="https://github.com/meenak95" target="_blank" rel="noreferrer" aria-label="GitHub">gh</a>
+      <a href="https://wa.me/6587373057" target="_blank" rel="noreferrer" aria-label="WhatsApp">wa</a>
+    </div>
 
     <footer>
-      <span>meena@portfolio:~$ echo "thanks for visiting"</span>
-      <span class="deploy-stamp">v2.1 · updated May 2026</span>
-      <a href="#hero">back_to_top</a>
+      <div class="shell footer-inner">
+        <span>© 2026 Meena Kannan · Lead Software Engineer</span>
+        <a href="#home">Back to top ↑</a>
+      </div>
     </footer>
 
-    <script src="script.js"></script>
-  
-    <!-- =====================================================
-         FLOATING BUTTONS (copied from Anup's portfolio)
-         Fixed bottom-right: WhatsApp, LinkedIn, GitHub, Email
-         Fixed left-center: section nav dots
-    ===================================================== -->
-    <div class="float-social" id="floatSocial">
-      <a class="fsb fsb-email" href="mailto:meenakannan92@gmail.com?subject=Opportunity%20from%20Portfolio" aria-label="Email">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        <span class="fsb-label">Email</span>
-      </a>
-      <a class="fsb fsb-github" href="https://github.com/meenak95" target="_blank" rel="noreferrer" aria-label="GitHub">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
-        <span class="fsb-label">GitHub</span>
-      </a>
-      <a class="fsb fsb-linkedin" href="https://www.linkedin.com/in/meena-kannan-mk/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        <span class="fsb-label">LinkedIn</span>
-      </a>
-      <a class="fsb fsb-whatsapp" href="https://wa.me/6587373057?text=Hi%20Meena%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect." target="_blank" rel="noreferrer" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-        <span class="fsb-label">WhatsApp</span>
-      </a>
-    </div>
-</body>
+    <script>
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      document.addEventListener('pointermove', (event) => {
+        document.body.style.setProperty('--mx', `${event.clientX}px`);
+        document.body.style.setProperty('--my', `${event.clientY}px`);
+      }, { passive: true });
+
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.18, rootMargin: '0px 0px -60px 0px' });
+
+      document.querySelectorAll('.reveal').forEach((el, index) => {
+        if (!prefersReducedMotion) el.style.transitionDelay = `${Math.min(index * 45, 260)}ms`;
+        revealObserver.observe(el);
+      });
+
+      const navLinks = [...document.querySelectorAll('nav a')];
+      const sections = navLinks.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+      const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          navLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+        });
+      }, { threshold: 0.32 });
+      sections.forEach((section) => navObserver.observe(section));
+
+      document.querySelector('#contactForm')?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const name = document.querySelector('#name').value.trim();
+        const company = document.querySelector('#company').value.trim();
+        const email = document.querySelector('#email').value.trim();
+        const type = document.querySelector('#type').value;
+        const message = document.querySelector('#message').value.trim();
+        const note = document.querySelector('#formNote');
+        if (!name || !email || !message) {
+          note.textContent = 'Please fill name, email, and message.';
+          return;
+        }
+        const subject = encodeURIComponent(`Portfolio inquiry: ${type}${company ? ' — ' + company : ''}`);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}\nOpportunity: ${type}\n\nMessage:\n${message}`);
+        window.location.href = `mailto:meenakannan92@gmail.com?subject=${subject}&body=${body}`;
+        note.textContent = 'Email draft prepared. Send it from your mail app to complete the message.';
+      });
+    </script>
+  </body>
 </html>
