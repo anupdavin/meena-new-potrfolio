@@ -1,795 +1,185 @@
-const heroCodeLines = [
-  'public class LeadSoftwareEngineer {',
-  '    private String name = "Meena Kannan";',
-  '    private String seniority = "decade-class";',
-  '    private List<String> stack = List.of(',
-  '        "Java 21",',
-  '        "Spring Boot 3",',
-  '        "Kubernetes",',
-  '        "Kafka",',
-  '        "AWS GovCloud",',
-  '        "Spring AI + MCP"',
-  '    );',
-  '',
-  '    // Production systems, not demo code',
-  '    public void modernize() {',
-  '        recover("legacy knowledge");',
-  '        deploy("microservices + GitOps");',
-  '        secure("Istio + Vault + Keycloak");',
-  '        observe("Prometheus + OpenTelemetry");',
-  '    }',
-  '}',
-];
-
-const contactLines = [
-  'meena@portfolio:~$ contact --info',
-  '> Email: meenakannan92@gmail.com',
-  '> Singapore: +65 8737 3057',
-  '> India: +91 97893 02084',
-  '> LinkedIn: linkedin.com/in/meena-kannan-mk',
-  '> GitHub: github.com/meenak95',
-  '',
-  'meena@portfolio:~$ availability --status',
-  '> Status: ✅ Open to senior remote roles worldwide',
-  '> Capacity: available Q3 2026 onwards',
-  '> Remote: fully available',
-  '> Timezone: SGT (GMT+8) / flexible overlap',
-  '> Start date: within 2–4 weeks',
-  '',
-  'meena@portfolio:~$ engagement --models',
-  '> Full-time: senior / lead engineer roles',
-  '> Contract: GovTech, fintech, cloud modernization',
-  '> Consulting: architecture review + AI enablement',
-  '',
-  'meena@portfolio:~$ response --guarantee',
-  '> Initial reply: within 24 hours',
-  '> Call availability: weekdays SGT morning / evening',
-  '',
-  'meena@portfolio:~$ _',
-];
-
-const skillData = {
-  backend: {
-    detail: 'Backend selected: Java 21, Spring Boot 3.x, Spring Security, Hibernate/JPA, REST, SOAP, WebFlux, and Resilience4j.',
-    items: [
-      ['Java 21', 96, 'Enterprise service design and modernization'],
-      ['Spring Boot 3', 94, 'Microservices, APIs, secure backend delivery'],
-      ['Spring Security', 88, 'OAuth2/OIDC, Keycloak, service security'],
-      ['Hibernate/JPA', 86, 'Data modelling and persistence'],
-      ['Resilience4j', 82, 'Fault tolerance and service reliability'],
-      ['REST/SOAP', 88, 'API integration across legacy and modern stacks'],
-    ],
-  },
-  cloud: {
-    detail: 'Cloud and DevOps selected: AWS Government Cloud, ECS, EKS, ALB, S3, RDS, CloudFront, Docker, Kubernetes, Helm, Istio, ArgoCD, Jenkins, and GitHub Actions.',
-    items: [
-      ['Kubernetes', 90, 'Workloads, service discovery, rollout patterns'],
-      ['AWS GovCloud', 88, 'ECS, EKS, ALB, S3, RDS, IAM, CloudFront'],
-      ['Istio', 84, 'mTLS, traffic policy, service mesh controls'],
-      ['ArgoCD', 86, 'GitOps release standardization'],
-      ['Docker/Helm', 88, 'Container packaging and deployment'],
-      ['Jenkins/GitHub Actions', 86, 'CI/CD and release automation'],
-    ],
-  },
-  ai: {
-    detail: 'AI and LLM selected: Spring AI, RAG, MCP, Claude API, embeddings, prompt engineering, evaluation loops, and Copilot agentic workflows.',
-    items: [
-      ['Spring AI', 82, 'Java-native AI service acceleration'],
-      ['RAG pipelines', 80, 'Retrieval design, chunking, evaluation'],
-      ['MCP', 78, 'Tool invocation and backend agent patterns'],
-      ['Claude API', 76, 'LLM integration and workflow prototyping'],
-      ['Copilot agentic mode', 84, 'Squad adoption and developer acceleration'],
-      ['Responsible AI', 80, 'PDPA-aware minimization and auditability'],
-    ],
-  },
-  frontend: {
-    detail: 'Frontend selected: Angular 18, NgRx, RxJS, React, Next.js, JSF/PrimeFaces, GraphQL, and citizen-facing workflow design.',
-    items: [
-      ['Angular 18', 88, 'Modern enterprise frontend migration'],
-      ['NgRx', 84, 'Predictable state management'],
-      ['RxJS', 86, 'Reactive UI and API orchestration'],
-      ['React/Next.js', 76, 'Modern component-driven UI'],
-      ['JSF/PrimeFaces', 82, 'Legacy citizen portal delivery'],
-      ['GraphQL', 72, 'API query layer experience'],
-    ],
-  },
-  data: {
-    detail: 'Messaging and data selected: Kafka, Kafka Streams, KEDA, JMS, IBM MQ, PostgreSQL, Oracle, MySQL, MongoDB, Redis, and Flyway.',
-    items: [
-      ['Kafka', 90, 'Event streaming and asynchronous workflows'],
-      ['Kafka Streams', 82, 'Stream processing and event transforms'],
-      ['KEDA', 80, 'Event-driven autoscaling'],
-      ['Redis', 84, 'Caching and timeout reduction'],
-      ['Oracle/PostgreSQL', 88, 'GovTech and enterprise data platforms'],
-      ['MongoDB', 78, 'Document storage for legal tech systems'],
-    ],
-  },
-};
-
-const workflowDetails = [
-  {
-    command: 'Modernization step 01: recover legacy behavior',
-    title: 'Recover behavior before replacing systems.',
-    text: 'Meena owned live VRLS legacy support and produced the knowledge base for 8 core licensing modules, enabling the new VRLS 2.0 squad to move forward without prior domain knowledge.',
-  },
-  {
-    command: 'Modernization step 02: design service boundaries',
-    title: 'Split services around real domain boundaries.',
-    text: 'Vehicle registration, ownership transfer, road tax, and permits become Spring Boot services with clear ownership over data, deployment, and API contracts.',
-  },
-  {
-    command: 'Modernization step 03: introduce event-driven flow',
-    title: 'Replace polling with event-driven behavior.',
-    text: 'Kafka event streaming, Redis caching, and KEDA autoscaling reduce polling, timeout cascades, and manual scaling during peak renewal periods.',
-  },
-  {
-    command: 'Modernization step 04: secure the platform path',
-    title: 'Bake security into the platform path.',
-    text: 'Istio service mesh, mutual TLS, Vault, Keycloak, OAuth2/OIDC, HP Fortify, and SonarQube turn release safety into part of the architecture.',
-  },
-  {
-    command: 'Modernization step 05: ship with governance',
-    title: 'Ship with observability and squad enablement.',
-    text: 'ArgoCD GitOps, Jenkins, GitHub Actions, Prometheus, Grafana, OpenTelemetry, ADRs, code reviews, mentoring, and retrospectives keep delivery repeatable.',
-  },
-];
-
-const projectDetails = {
-  vrls: `Selected work: VRLS 2.0 modernization
-Status: production modernization
-Domain: Singapore Land Transport Authority
-Impact: citizen-facing licensing workflows
-Architecture: Spring Boot 3 services, Kafka, Redis, KEDA, EKS, Istio
-Delivery: ArgoCD, Jenkins, GitHub Actions, SonarQube, Fortify
-Signal: legacy knowledge transfer became modernization leverage`,
-  'retail-ai': `Selected work: Retail promotion forecasting
-Status: real-time analytics
-Domain: AI-powered CPG retail forecasting
-Impact: 15+ minute reporting delay cut to near real time
-Architecture: Spring Boot, Kafka events, AWS Lambda, PostgreSQL
-Delivery: fallback handling, batching, latency SLAs
-Signal: AI integration with production service contracts`,
-  'legal-ai': `Selected work: Legal View Bill Analyzer
-Status: legal-tech rules engine
-Domain: legal billing anomaly detection
-Impact: AI output combined with expert compliance rules
-Architecture: Spring Boot, MongoDB, Drools BRMS, REST
-Delivery: sub-500ms rule evaluation under production load
-Signal: auditable automation for sensitive domain logic`,
-};
-
-const bootLines = [
-  ['ok', 'mount /career/meena-kannan'],
-  ['ok', 'detect seniority: decade-class production engineer'],
-  ['ok', 'load module: govtech-modernization'],
-  ['ok', 'load module: java21-springboot3'],
-  ['ok', 'connect kafka://vrls-events'],
-  ['ok', 'sync argocd://aws-govcloud'],
-  ['ok', 'enable spring-ai + mcp toolchain'],
-  ['ok', 'render hacker portfolio interface'],
-];
-
-function runBoot() {
-  const screen = document.querySelector('#bootScreen');
-  const lines = document.querySelector('#bootLines');
-  const progress = document.querySelector('#bootProgress');
-  if (!screen || !lines || !progress) return;
-
-  document.body.classList.add('booting');
-  let index = 0;
-
-  function addLine() {
-    if (index >= bootLines.length) {
-      progress.style.width = '100%';
-      window.setTimeout(() => {
-        screen.classList.add('done');
-        document.body.classList.remove('booting');
-        window.setTimeout(() => screen.remove(), 560);
-      }, 420);
-      return;
-    }
-
-    const [status, text] = bootLines[index];
-    const row = document.createElement('div');
-    row.className = 'boot-row';
-    row.innerHTML = `<span>[${status}]</span><strong>${text}</strong>`;
-    lines.appendChild(row);
-    progress.style.width = `${Math.round(((index + 1) / bootLines.length) * 100)}%`;
-    index += 1;
-    window.setTimeout(addLine, 135 + Math.random() * 110);
-  }
-
-  addLine();
-}
-
-function typeLines(target, lines, speed = 24) {
-  if (!target) return;
-  let line = 0;
-  let char = 0;
-  const output = lines.map(() => '');
-
-  function render() {
-    target.innerHTML = output
-      .map((content, index) => {
-        const cursor = index === line ? '<span class="cursor">&#9608;</span>' : '';
-        return `<div class="code-line"><span class="line-no">${String(index + 1).padStart(2, '0')}</span><span>${content}${cursor}</span></div>`;
-      })
-      .join('');
-  }
-
-  function tick() {
-    if (line >= lines.length) {
-      target.innerHTML = output
-        .map((content, index) => `<div class="code-line"><span class="line-no">${String(index + 1).padStart(2, '0')}</span><span>${content}</span></div>`)
-        .join('');
-      return;
-    }
-
-    const current = lines[line];
-    if (char < current.length) {
-      output[line] += current[char].replace('<', '&lt;').replace('>', '&gt;');
-      char += 1;
-    } else {
-      line += 1;
-      char = 0;
-    }
-
-    render();
-    window.setTimeout(tick, char === 0 ? 180 : speed + Math.random() * speed);
-  }
-
-  render();
-  tick();
-}
-
-function typeContact() {
-  const target = document.querySelector('#contactTerminal');
-  if (!target) return;
-  let index = 0;
-
-  function lineClass(line) {
-    if (line.startsWith('meena@')) return 'contact-line ct-prompt';
-    if (line.startsWith('>')) {
-      if (line.includes('✅')) return 'contact-line ct-success';
-      return 'contact-line ct-value';
-    }
-    if (line === '') return 'contact-line ct-spacer';
-    return 'contact-line ct-label';
-  }
-
-  function tick() {
-    if (index >= contactLines.length) return;
-    const line = document.createElement('div');
-    line.className = lineClass(contactLines[index]);
-    line.textContent = contactLines[index];
-    target.appendChild(line);
-    target.scrollTop = target.scrollHeight;
-    index += 1;
-    window.setTimeout(tick, index === 1 ? 700 : 155);
-  }
-
-  tick();
-}
-
-function renderSkills(key = 'backend') {
-  const grid = document.querySelector('#skillGrid');
-  const detail = document.querySelector('#skillDetail');
-  const data = skillData[key];
-  if (!grid || !detail || !data) return;
-
-  detail.textContent = data.detail;
-  grid.innerHTML = data.items
-    .map(([name, level, description]) => `
-      <article class="skill-card">
-        <h3>${name}</h3>
-        <p>${description}</p>
-        <div class="bar" aria-label="${name} proficiency"><span style="--level: ${level}%"></span></div>
-      </article>
-    `)
-    .join('');
-
-  requestAnimationFrame(() => grid.classList.add('visible-bars'));
-}
-
-function setupSkillTabs() {
-  document.querySelectorAll('[data-skill]').forEach((button) => {
-    button.addEventListener('click', () => {
-      document.querySelectorAll('[data-skill]').forEach((item) => item.classList.remove('active'));
-      button.classList.add('active');
-      document.querySelector('#skillGrid')?.classList.remove('visible-bars');
-      renderSkills(button.dataset.skill);
-    });
-  });
-  renderSkills('backend');
-}
-
-function setupWorkflow() {
-  const command = document.querySelector('#workflowCommand');
-  const title = document.querySelector('#workflowTitle');
-  const text = document.querySelector('#workflowText');
-  const bar = document.querySelector('#workflowBar');
-
-  document.querySelectorAll('[data-workflow]').forEach((button) => {
-    button.addEventListener('click', () => {
-      const index = Number(button.dataset.workflow);
-      const detail = workflowDetails[index];
-      if (!detail) return;
-
-      document.querySelectorAll('[data-workflow]').forEach((item) => item.classList.remove('active'));
-      button.classList.add('active');
-      command.textContent = detail.command;
-      title.textContent = detail.title;
-      text.textContent = detail.text;
-      bar.style.width = `${(index + 1) * 20}%`;
-    });
-  });
-}
-
-function setupProjectInspector() {
-  const inspector = document.querySelector('#projectInspector');
-  if (!inspector) return;
-
-  document.querySelectorAll('[data-project]').forEach((button) => {
-    button.addEventListener('click', () => {
-      const key = button.dataset.project;
-      inspector.textContent = projectDetails[key] || projectDetails.vrls;
-      document.querySelectorAll('[data-project-card]').forEach((card) => {
-        card.classList.toggle('active', card.dataset.projectCard === key);
-      });
-    });
-  });
-}
-
-function setupReveal() {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.18, rootMargin: '0px 0px -60px 0px' }
-  );
-
-  document.querySelectorAll('.reveal').forEach((element, index) => {
-    element.style.transitionDelay = `${Math.min(index * 45, 320)}ms`;
-    observer.observe(element);
-  });
-}
-
-function setupSectionDots() {
-  const dots = document.querySelectorAll('[data-section-dot]');
-  const sections = [...dots]
-    .map((dot) => document.getElementById(dot.dataset.sectionDot))
-    .filter(Boolean);
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        dots.forEach((dot) => dot.classList.toggle('active', dot.dataset.sectionDot === entry.target.id));
-      });
-    },
-    { threshold: 0.32 }
-  );
-
-  sections.forEach((section) => observer.observe(section));
-}
-
-function setupMatrix() {
-  const canvas = document.querySelector('#matrix');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const glyphs = '01{}[]<>/\\$#JAVA SPRING KAFKA AWS AI LTA VRLS MCP';
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let columns = [];
-  let width = 0;
-  let height = 0;
-  let fontSize = 16;
-
-  function resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = Math.floor(width * dpr);
-    canvas.height = Math.floor(height * dpr);
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    fontSize = width < 700 ? 13 : 16;
-    columns = Array.from({ length: Math.ceil(width / fontSize) }, () => Math.random() * -height);
-  }
-
-  function draw() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
-    ctx.fillRect(0, 0, width, height);
-    ctx.font = `${fontSize}px "JetBrains Mono", monospace`;
-
-    columns.forEach((y, index) => {
-      const char = glyphs[Math.floor(Math.random() * glyphs.length)];
-      const x = index * fontSize;
-      ctx.fillStyle = Math.random() > 0.9 ? 'rgba(34, 211, 238, 0.68)' : 'rgba(34, 197, 94, 0.58)';
-      ctx.fillText(char, x, y);
-      columns[index] = y > height + Math.random() * 900 ? 0 : y + fontSize;
-    });
-
-    if (!prefersReducedMotion) window.requestAnimationFrame(draw);
-  }
-
-  resize();
-  draw();
-  window.addEventListener('resize', resize);
-}
-
-function setupCursorAura() {
-  const aura = document.querySelector('#cursorAura');
-  if (!aura) return;
-
-  let x = window.innerWidth / 2;
-  let y = window.innerHeight / 2;
-  let tx = x;
-  let ty = y;
-
-  window.addEventListener('pointermove', (event) => {
-    tx = event.clientX;
-    ty = event.clientY;
-  });
-
-  function tick() {
-    x += (tx - x) * 0.16;
-    y += (ty - y) * 0.16;
-    aura.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
-    requestAnimationFrame(tick);
-  }
-
-  tick();
-}
-
-function setupCommandDock() {
-  const form = document.querySelector('#commandForm');
-  const input = document.querySelector('#commandInput');
-  const output = document.querySelector('#dockOutput');
-  if (!form || !input || !output) return;
-
-  const commands = {
-    help: 'commands: help, about, seniority, skills, workflow, warroom, projects, ai, experience, contact, resume, clear',
-    about: 'opening ./about_me.txt',
-    seniority: 'running ./seniority_scan --decade',
-    skills: 'running ls -la /skills/',
-    workflow: 'running ./modernization_pipeline.sh',
-    warroom: 'tailing production_warroom.log',
-    projects: 'running git log --projects',
-    ai: 'running ./ai_lab --rag --mcp --guardrails',
-    experience: 'opening career_timeline.log',
-    contact: 'running ./contact_me.sh',
-    resume: 'opening assets/MeenaKannan_Resume_2026.pdf',
-  };
-
-  const targets = {
-    about: '#about',
-    seniority: '#seniority',
-    skills: '#skills',
-    workflow: '#workflow',
-    warroom: '#warroom',
-    projects: '#projects',
-    ai: '#ai',
-    experience: '#experience',
-    contact: '#contact',
-  };
-
-  function print(kind, text) {
-    const row = document.createElement('div');
-    row.innerHTML = `<span>${kind}</span> ${text}`;
-    output.appendChild(row);
-    output.scrollTop = output.scrollHeight;
-  }
-
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const raw = input.value.trim().toLowerCase();
-    if (!raw) return;
-
-    print('cmd', raw);
-    input.value = '';
-
-    if (raw === 'clear') {
-      output.innerHTML = '<div><span>system</span> cleared</div>';
-      return;
-    }
-
-    if (raw === 'resume') {
-      print('ok', commands.resume);
-      window.open('assets/MeenaKannan_Resume_2026.pdf', '_blank', 'noopener,noreferrer');
-      return;
-    }
-
-    if (commands[raw]) {
-      print('ok', commands[raw]);
-      if (targets[raw]) document.querySelector(targets[raw])?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      return;
-    }
-
-    print('err', `unknown command: ${raw}. type help`);
-  });
-}
-
-function setupClientLens() {
-  const buttons = [...document.querySelectorAll('[data-brief-lens]')];
-  const eyebrow = document.querySelector('#briefEyebrow');
-  const title = document.querySelector('#briefTitle');
-  const text = document.querySelector('#briefText');
-  const grid = document.querySelector('#briefGrid');
-  const checklist = document.querySelector('#briefChecklist');
-  if (!buttons.length || !eyebrow || !title || !text || !grid || !checklist) return;
-
-  const lenses = {
-    modernize: {
-      eyebrow: 'Current focus',
-      title: 'LTA VRLS 2.0 modernization',
-      text: 'Supporting Singapore transport licensing modernization across legacy knowledge recovery, Spring Boot services, cloud deployment, secure release practices, and team handover.',
-      cards: [
-        ['Client confidence', 'Owns live systems', 'Comfortable with production support, UAT pressure, release controls, and domain-heavy workflows.'],
-        ['Modern stack', 'Java + cloud native', 'Java 21, Spring Boot 3, Kubernetes, Kafka, Redis, KEDA, Istio, AWS GovCloud, and ArgoCD.'],
-        ['Delivery style', 'Practical leadership', 'Documents decisions, mentors engineers, reviews code, and turns complex systems into repeatable delivery.'],
-        ['AI readiness', 'Useful, not hype', 'Applies Spring AI, RAG, MCP, Claude API, and Copilot workflows where they improve engineering outcomes.'],
-      ],
-      checks: [
-        'Government and enterprise delivery experience',
-        'Secure CI/CD, code quality, and release governance',
-        'Strong bridge between legacy behavior and modern architecture',
-      ],
-    },
-    stabilize: {
-      eyebrow: 'When reliability matters',
-      title: 'Production ownership under real constraints',
-      text: 'A client can trust Meena with systems that cannot simply pause: incidents, UAT feedback, release gates, integration risks, and team knowledge gaps.',
-      cards: [
-        ['Operating model', 'Support + delivery', 'Balances feature work with production tickets, release readiness, and cross-team coordination.'],
-        ['Risk controls', 'Quality gates', 'Uses SonarQube, Fortify, reviews, documentation, and release discipline to reduce avoidable defects.'],
-        ['Integration depth', 'Legacy + modern', 'Works across SOAP, REST, queues, databases, microservices, and citizen-facing business flows.'],
-        ['Team reliability', 'Knowledge transfer', 'Creates handover material and practical playbooks so teams are less dependent on tribal memory.'],
-      ],
-      checks: [
-        'Production support mindset, not just feature delivery',
-        'Comfortable with domain-heavy government workflows',
-        'Clear communication across engineering, QA, UAT, and business users',
-      ],
-    },
-    ai: {
-      eyebrow: 'AI-enabled engineering',
-      title: 'Modern delivery with responsible AI leverage',
-      text: 'Meena brings AI into engineering where it helps: faster reviews, better documentation, retrieval-assisted workflows, and safer developer productivity.',
-      cards: [
-        ['AI patterns', 'Spring AI + RAG', 'Understands retrieval pipelines, prompt structure, MCP tool use, and Java-native AI integration.'],
-        ['Developer velocity', 'Copilot workflows', 'Uses agentic coding assistance for scaffolding, review, tests, and repetitive implementation work.'],
-        ['Governance', 'Practical guardrails', 'Keeps sensitive domains focused on traceability, human review, minimization, and measurable outcomes.'],
-        ['Enterprise fit', 'AI plus architecture', 'Connects AI features to service contracts, data access, security, and maintainable backend design.'],
-      ],
-      checks: [
-        'AI used as engineering leverage, not a portfolio buzzword',
-        'Strong Java backend base underneath AI experimentation',
-        'Useful for teams adopting AI-assisted delivery carefully',
-      ],
-    },
-  };
-
-  function renderLens(key) {
-    const lens = lenses[key] || lenses.modernize;
-    buttons.forEach((button) => button.classList.toggle('active', button.dataset.briefLens === key));
-    eyebrow.textContent = lens.eyebrow;
-    title.textContent = lens.title;
-    text.textContent = lens.text;
-    grid.replaceChildren(...lens.cards.map(([label, heading, body]) => {
-      const card = document.createElement('div');
-      card.innerHTML = `<span>${label}</span><strong>${heading}</strong><p>${body}</p>`;
-      return card;
-    }));
-    checklist.replaceChildren(...lens.checks.map((item) => {
-      const row = document.createElement('div');
-      const dot = document.createElement('span');
-      row.append(dot, document.createTextNode(` ${item}`));
-      return row;
-    }));
-  }
-
-  buttons.forEach((button) => {
-    button.addEventListener('click', () => renderLens(button.dataset.briefLens));
-  });
-}
-
-runBoot();
-typeLines(document.querySelector('#heroCode'), heroCodeLines, 12);
-typeContact();
-setupSkillTabs();
-setupWorkflow();
-setupProjectInspector();
-setupReveal();
-setupSectionDots();
-setupMatrix();
-setupCursorAura();
-setupCommandDock();
-setupClientLens();
-
 /* ============================================================
-   CONTACT FORM HANDLER
+   Meena Portfolio — script.js
+   Written against the live Codex HTML structure (2026-05-29)
+   Sections: #home #capabilities #work #experience #contact
+   Cards: .card  Timeline: .timeline-item  Contact: .contact-link
+   Hero: h1 .eyebrow .hero-subtitle .hero-copy .brief-card .proof-row
    ============================================================ */
-function setupContactForm() {
-  const form = document.querySelector('#contactForm');
-  const btn = document.querySelector('#cfpSubmitBtn');
-  const success = document.querySelector('#cfpSuccess');
-  if (!form || !btn || !success) return;
 
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const name = form.querySelector('#cf-name').value.trim();
-    const email = form.querySelector('#cf-email').value.trim();
-    const message = form.querySelector('#cf-message').value.trim();
-
-    if (!name || !email || !message) return;
-
-    btn.disabled = true;
-    btn.classList.add('submitting');
-    success.classList.remove('visible');
-
-    // Simulate send (replace with actual endpoint / mailto fallback)
-    window.setTimeout(() => {
-      btn.disabled = false;
-      btn.classList.remove('submitting');
-
-      // Open mailto as real send fallback
-      const company = form.querySelector('#cf-company').value.trim();
-      const type = form.querySelector('#cf-type').value;
-      const subject = encodeURIComponent('Portfolio Inquiry' + (company ? ' — ' + company : ''));
-      const body = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}\nType: ${type || 'N/A'}\n\n${message}`
-      );
-      window.open(`mailto:meenakannan92@gmail.com?subject=${subject}&body=${body}`, '_blank');
-
-      success.textContent = '✅ Opening your email client — message ready to send!';
-      success.classList.add('visible');
-      form.reset();
-
-      window.setTimeout(() => success.classList.remove('visible'), 7000);
-    }, 900);
-  });
-}
-
-setupContactForm();
-
-
-/* ============================================================
-   NAVBAR — scrolled class + active link (Anup's pattern)
-   ============================================================ */
-function setupNavbar() {
-  const topbar = document.querySelector('.topbar');
-  if (!topbar) return;
-
-  // Scrolled state — darkens background slightly
-  window.addEventListener('scroll', () => {
-    topbar.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
-
-  // Active nav link via IntersectionObserver
-  const navLinks = document.querySelectorAll('nav a');
-  const sections = document.querySelectorAll('section[id]');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navLinks.forEach(link => {
-          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
-        });
-      }
-    });
-  }, { threshold: 0.35, rootMargin: '-60px 0px' });
-
-  sections.forEach(s => observer.observe(s));
-}
-
-setupNavbar();
-
-/* ============================================================
-   GAMING EXPERIENCE — Enhanced interactive layer
-   All effects respect prefers-reduced-motion + touch devices
-   ============================================================ */
+'use strict';
 
 const CAN_HOVER = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-const REDUCED  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ----------------------------------------------------------
-   1. ENHANCED CURSOR — inner dot + outer ring + click pulse
-   ---------------------------------------------------------- */
-function setupEnhancedCursor() {
+/* ── 1. Reveal on scroll ────────────────────────────────── */
+(function setupReveal() {
+  const els = document.querySelectorAll('.reveal');
+  const io  = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+  els.forEach((el, i) => {
+    if (!REDUCED) el.style.transitionDelay = `${Math.min(i % 6 * 80, 320)}ms`;
+    io.observe(el);
+  });
+})();
+
+/* ── 2. Nav active link ─────────────────────────────────── */
+(function setupNavActive() {
+  const links = [...document.querySelectorAll('nav a[href^="#"]')];
+  const secs  = links.map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+  const io    = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${e.target.id}`));
+    });
+  }, { threshold: 0.35 });
+  secs.forEach(s => io.observe(s));
+
+  // Navbar darkens on scroll
+  const bar = document.querySelector('.topbar');
+  if (bar) {
+    window.addEventListener('scroll', () => bar.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+  }
+})();
+
+/* ── 3. Contact form ────────────────────────────────────── */
+(function setupContactForm() {
+  const form = document.querySelector('#contactForm');
+  const note = document.querySelector('#formNote');
+  if (!form || !note) return;
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const n = form.querySelector('#name')?.value.trim();
+    const em = form.querySelector('#email')?.value.trim();
+    const m  = form.querySelector('#message')?.value.trim();
+    const c  = form.querySelector('#company')?.value.trim();
+    const t  = form.querySelector('#type')?.value;
+    if (!n || !em || !m) { note.textContent = 'Please fill name, email, and message.'; return; }
+    const sub  = encodeURIComponent(`Portfolio inquiry: ${t}${c ? ' — ' + c : ''}`);
+    const body = encodeURIComponent(`Name: ${n}\nEmail: ${em}\nCompany: ${c||'N/A'}\nOpportunity: ${t}\n\nMessage:\n${m}`);
+    window.location.href = `mailto:meenakannan92@gmail.com?subject=${sub}&body=${body}`;
+    note.textContent = 'Email draft prepared — send it from your mail app.';
+    form.reset();
+  });
+})();
+
+/* ── 4. Float-social — upgrade to SVG icons ────────────── */
+(function upgradeFloatSocial() {
+  const wrap = document.querySelector('.float-social');
+  if (!wrap) return;
+
+  const buttons = [
+    {
+      href: 'mailto:meenakannan92@gmail.com?subject=Opportunity%20from%20Portfolio',
+      label: 'Email', cls: 'fsb-email',
+      svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`
+    },
+    {
+      href: 'https://github.com/meenak95', target: '_blank', rel: 'noreferrer',
+      label: 'GitHub', cls: 'fsb-github',
+      svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>`
+    },
+    {
+      href: 'https://www.linkedin.com/in/meena-kannan-mk/', target: '_blank', rel: 'noreferrer',
+      label: 'LinkedIn', cls: 'fsb-linkedin',
+      svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`
+    },
+    {
+      href: 'https://wa.me/6587373057?text=Hi%20Meena%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect.',
+      target: '_blank', rel: 'noreferrer',
+      label: 'WhatsApp', cls: 'fsb-whatsapp',
+      svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>`
+    }
+  ];
+
+  wrap.innerHTML = buttons.map(b => `
+    <a class="fsb ${b.cls}" href="${b.href}"
+      ${b.target ? `target="${b.target}" rel="${b.rel}"` : ''}
+      aria-label="${b.label}">
+      ${b.svg}
+      <span class="fsb-tip">${b.label}</span>
+    </a>`).join('');
+})();
+
+/* ── 5. Section nav dots (injected) ────────────────────── */
+(function setupSectionDots() {
+  const sections = [
+    { id: 'home',         label: 'Home' },
+    { id: 'capabilities', label: 'Capabilities' },
+    { id: 'work',         label: 'Work' },
+    { id: 'experience',   label: 'Experience' },
+    { id: 'contact',      label: 'Contact' },
+  ];
+
+  const nav = document.createElement('nav');
+  nav.className = 'sdots';
+  nav.setAttribute('aria-label', 'Section navigation');
+  nav.innerHTML = sections.map(s =>
+    `<a class="sdot" href="#${s.id}" data-sid="${s.id}" aria-label="${s.label}"></a>`
+  ).join('');
+  document.body.appendChild(nav);
+
+  const dots = nav.querySelectorAll('.sdot');
+  const io   = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      dots.forEach(d => d.classList.toggle('active', d.dataset.sid === e.target.id));
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(({ id }) => {
+    const el = document.getElementById(id);
+    if (el) io.observe(el);
+  });
+})();
+
+/* ── 6. Enhanced cursor ─────────────────────────────────── */
+(function setupCursor() {
   if (!CAN_HOVER) return;
 
-  const ring = document.querySelector('#cursorAura');
-  if (!ring) return;
+  const dot  = document.createElement('div'); dot.id  = 'cur-dot';
+  const ring = document.createElement('div'); ring.id = 'cur-ring';
+  document.body.append(dot, ring);
 
-  // Inject inner dot
-  const dot = document.createElement('div');
-  dot.id = 'cursorDot';
-  document.body.appendChild(dot);
-
-  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-  let rx = mx, ry = my;
-
+  let mx = 0, my = 0, rx = 0, ry = 0;
   window.addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
 
-  // Lerp ring toward mouse
   (function tick() {
     rx += (mx - rx) * 0.13;
     ry += (my - ry) * 0.13;
-    ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
-    dot.style.transform  = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+    dot.style.transform  = `translate(${mx}px,${my}px)`;
+    ring.style.transform = `translate(${rx}px,${ry}px)`;
     requestAnimationFrame(tick);
   })();
 
-  // Hover state — ring shrinks on interactive elements
   document.addEventListener('pointerover', e => {
-    const interactive = e.target.closest('a,button,input,textarea,select,[data-project],[data-brief-lens]');
-    ring.classList.toggle('cursor-hover', !!interactive);
-    dot.classList.toggle('cursor-hover', !!interactive);
+    const hot = !!e.target.closest('a,button,input,textarea,select');
+    ring.classList.toggle('ring-hot', hot);
   });
 
-  // Click pulse
   document.addEventListener('pointerdown', () => {
-    ring.classList.add('cursor-click');
-    setTimeout(() => ring.classList.remove('cursor-click'), 400);
+    ring.classList.add('ring-click');
+    setTimeout(() => ring.classList.remove('ring-click'), 420);
   });
-}
+})();
 
-/* ----------------------------------------------------------
-   2. CLICK PARTICLE BURST on CTA buttons
-   ---------------------------------------------------------- */
-function setupClickParticles() {
-  if (REDUCED) return;
-
-  function burst(x, y, color) {
-    for (let i = 0; i < 10; i++) {
-      const p = document.createElement('span');
-      p.className = 'click-particle';
-      const angle  = (Math.PI * 2 * i) / 10;
-      const radius = 40 + Math.random() * 40;
-      p.style.cssText = `
-        left:${x}px; top:${y}px;
-        --tx:${Math.cos(angle) * radius}px;
-        --ty:${Math.sin(angle) * radius}px;
-        background:${color};
-      `;
-      document.body.appendChild(p);
-      setTimeout(() => p.remove(), 700);
-    }
-  }
-
-  document.addEventListener('click', e => {
-    const btn = e.target.closest('.btn,.cfp-submit,.fsb,.cfc-btn-primary,.cqa-btn');
-    if (!btn) return;
-    const color = btn.classList.contains('fsb-whatsapp') || btn.classList.contains('primary')
-      ? '#22c55e' : btn.classList.contains('fsb-linkedin') ? '#60a5fa' : '#c084fc';
-    burst(e.clientX, e.clientY, color);
-  });
-}
-
-/* ----------------------------------------------------------
-   3. 3D CARD TILT + HOLOGRAPHIC SHIMMER
-   ---------------------------------------------------------- */
-function setup3DTilt() {
+/* ── 7. 3D card tilt + holographic shimmer ──────────────── */
+(function setup3DTilt() {
   if (!CAN_HOVER || REDUCED) return;
 
-  const TILT = 10;
-  const sel  = '.project-card,.seniority-card,.timeline-card,.brief-grid > div,.contact-cards-v2 a,.warroom-radar';
-
+  const sel = '.card, .timeline-item, .contact-link, .brief-card, .proof-card, .signal';
   document.querySelectorAll(sel).forEach(card => {
-    card.classList.add('tilt-card');
+    card.classList.add('tilt');
 
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();
       const x = (e.clientX - r.left) / r.width  - 0.5;
       const y = (e.clientY - r.top)  / r.height - 0.5;
-      card.style.transform = `perspective(700px) rotateY(${x*TILT*2}deg) rotateX(${-y*TILT*2}deg) scale(1.025) translateZ(8px)`;
+      card.style.transform = `perspective(700px) rotateY(${x * 16}deg) rotateX(${-y * 16}deg) scale(1.025) translateZ(6px)`;
       card.style.setProperty('--sx', `${(x + 0.5) * 100}%`);
       card.style.setProperty('--sy', `${(y + 0.5) * 100}%`);
       card.style.setProperty('--so', '1');
@@ -800,169 +190,134 @@ function setup3DTilt() {
       card.style.setProperty('--so', '0');
     });
   });
-}
+})();
 
-/* ----------------------------------------------------------
-   4. HERO MOUSE PARALLAX — 3 depth layers
-   ---------------------------------------------------------- */
-function setupHeroParallax() {
+/* ── 8. Hero mouse parallax ─────────────────────────────── */
+(function setupParallax() {
   if (!CAN_HOVER || REDUCED) return;
-
-  const hero = document.querySelector('#hero');
+  const hero = document.querySelector('.hero');
   if (!hero) return;
 
   const layers = [
-    { el: document.querySelector('.status-pill'),       mx: 0.035, my: 0.025 },
-    { el: document.querySelector('.glitch-title'),      mx: 0.025, my: 0.018 },
-    { el: document.querySelector('.hero-thesis'),       mx: 0.015, my: 0.012 },
-    { el: document.querySelector('.client-brief-wrap'), mx: -0.03, my: -0.02 },
-    { el: document.querySelector('.stats-grid'),        mx: 0.02,  my: 0.015 },
-  ].filter(l => l.el);
+    { sel: '.eyebrow',      mx:  0.03, my:  0.02 },
+    { sel: 'h1',            mx:  0.022,my:  0.016 },
+    { sel: '.hero-subtitle',mx:  0.014,my:  0.01  },
+    { sel: '.hero-copy',    mx:  0.01, my:  0.007 },
+    { sel: '.brief-card',   mx: -0.028,my: -0.02  },
+    { sel: '.proof-row',    mx:  0.018,my:  0.013 },
+  ].map(l => ({ el: hero.querySelector(l.sel), ...l })).filter(l => l.el);
 
-  let lx = 0, ly = 0, cx = 0, cy = 0;
-
+  let cx = 0, cy = 0, lx = 0, ly = 0;
   hero.addEventListener('mousemove', e => {
     const r = hero.getBoundingClientRect();
-    cx = ((e.clientX - r.left) / r.width  - 0.5) * r.width;
-    cy = ((e.clientY - r.top)  / r.height - 0.5) * r.height;
+    cx = (e.clientX - r.left  - r.width  / 2);
+    cy = (e.clientY - r.top   - r.height / 2);
   }, { passive: true });
-
   hero.addEventListener('mouseleave', () => { cx = 0; cy = 0; });
 
   (function tick() {
     lx += (cx - lx) * 0.08;
     ly += (cy - ly) * 0.08;
     layers.forEach(({ el, mx, my }) => {
-      el.style.transform = `translate(${lx * mx}px, ${ly * my}px)`;
+      el.style.transform = `translate(${lx * mx}px,${ly * my}px)`;
     });
     requestAnimationFrame(tick);
   })();
-}
+})();
 
-/* ----------------------------------------------------------
-   5. TEXT SCRAMBLE DECODE on section heading reveal
-   ---------------------------------------------------------- */
-function setupTextScramble() {
+/* ── 9. Text scramble on section heading reveal ─────────── */
+(function setupScramble() {
   if (REDUCED) return;
-
   const CHARS = '!<>-_\\/[]{}=+*^?#@$%ABCDEFGHIJKLMNOPQRSTUVWXYZ01';
 
   function scramble(el) {
-    const orig   = el.dataset.scrambleText || el.textContent;
-    el.dataset.scrambleText = orig;
+    const orig = el.dataset.orig || el.textContent;
+    el.dataset.orig = orig;
     let frame = 0;
-    const FRAMES = 22;
-
+    const FRAMES = 24;
     const id = setInterval(() => {
       el.textContent = orig.split('').map((ch, i) => {
         if (ch === ' ') return ' ';
         if (i < Math.round((frame / FRAMES) * orig.length)) return ch;
         return CHARS[Math.floor(Math.random() * CHARS.length)];
       }).join('');
-
-      if (frame++ >= FRAMES) { el.textContent = orig; clearInterval(id); }
-    }, 38);
+      if (++frame > FRAMES) { el.textContent = orig; clearInterval(id); }
+    }, 36);
   }
 
-  // Run scramble when section headings become visible
-  const observer = new IntersectionObserver(entries => {
+  const io = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       const h2 = entry.target.querySelector('h2');
       if (h2) scramble(h2);
-      observer.unobserve(entry.target);
+      io.unobserve(entry.target);
     });
   }, { threshold: 0.4 });
 
-  document.querySelectorAll('.section-head').forEach(el => observer.observe(el));
-}
+  document.querySelectorAll('.section-head').forEach(el => io.observe(el));
+})();
 
-/* ----------------------------------------------------------
-   6. ACHIEVEMENT TOAST — fires once when contact is reached
-   ---------------------------------------------------------- */
-function setupAchievementToast() {
-  const contact = document.querySelector('#contact');
-  if (!contact) return;
-
-  let fired = false;
-  const observer = new IntersectionObserver(entries => {
-    if (fired || !entries[0].isIntersecting) return;
-    fired = true;
-    observer.disconnect();
-
-    const toast = document.createElement('div');
-    toast.className = 'achievement-toast';
-    toast.innerHTML = `
-      <div class="ach-icon">🏆</div>
-      <div class="ach-body">
-        <div class="ach-title">ACHIEVEMENT UNLOCKED</div>
-        <div class="ach-sub">You reviewed the full engineering dossier</div>
-      </div>`;
-    document.body.appendChild(toast);
-
-    requestAnimationFrame(() => toast.classList.add('ach-visible'));
-    setTimeout(() => {
-      toast.classList.remove('ach-visible');
-      setTimeout(() => toast.remove(), 600);
-    }, 4500);
-  }, { threshold: 0.3 });
-
-  observer.observe(contact);
-}
-
-/* ----------------------------------------------------------
-   7. STAT COUNTER ANIMATION — numbers count up on reveal
-   ---------------------------------------------------------- */
-function setupStatCounters() {
+/* ── 10. Stat counter animation ─────────────────────────── */
+(function setupCounters() {
   if (REDUCED) return;
-
-  const counters = document.querySelectorAll('.value-row div strong, .stats-grid div strong');
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el   = entry.target;
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el   = e.target;
       const text = el.textContent.trim();
       const num  = parseFloat(text);
       if (isNaN(num)) return;
-
-      const suffix = text.replace(String(num), '');
-      let start = 0;
-      const step = num / 30;
+      const suffix = text.slice(String(num).length);
+      let val = 0;
+      const step = num / 32;
       const id = setInterval(() => {
-        start = Math.min(start + step, num);
-        el.textContent = (Number.isInteger(num) ? Math.round(start) : start.toFixed(1)) + suffix;
-        if (start >= num) clearInterval(id);
-      }, 35);
-
-      observer.unobserve(el);
+        val = Math.min(val + step, num);
+        el.textContent = (Number.isInteger(num) ? Math.round(val) : val.toFixed(1)) + suffix;
+        if (val >= num) clearInterval(id);
+      }, 33);
+      io.unobserve(el);
     });
   }, { threshold: 0.8 });
+  document.querySelectorAll('.proof-card strong').forEach(el => io.observe(el));
+})();
 
-  counters.forEach(el => observer.observe(el));
-}
-
-// Boot-safe: run gaming effects after boot screen clears
-function initGamingLayer() {
-  setupEnhancedCursor();
-  setupClickParticles();
-  setup3DTilt();
-  setupHeroParallax();
-  setupTextScramble();
-  setupAchievementToast();
-  setupStatCounters();
-}
-
-// Wait for boot to finish (boot screen removes itself)
-const bootEl = document.querySelector('#bootScreen');
-if (bootEl) {
-  const bootDone = new MutationObserver(() => {
-    if (!document.querySelector('#bootScreen')) {
-      bootDone.disconnect();
-      setTimeout(initGamingLayer, 200);
+/* ── 11. Click particle burst ───────────────────────────── */
+(function setupParticles() {
+  if (REDUCED) return;
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.btn, .fsb, .nav-cta');
+    if (!btn) return;
+    const color = btn.classList.contains('fsb-whatsapp') ? '#22c55e'
+                : btn.classList.contains('fsb-linkedin')  ? '#60a5fa'
+                : btn.classList.contains('fsb-email')     ? '#c084fc'
+                : '#3ef0a5';
+    for (let i = 0; i < 10; i++) {
+      const p = document.createElement('span');
+      p.className = 'px-particle';
+      const angle = (Math.PI * 2 * i) / 10;
+      const r = 40 + Math.random() * 36;
+      p.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;--tx:${Math.cos(angle)*r}px;--ty:${Math.sin(angle)*r}px;background:${color}`;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 650);
     }
   });
-  bootDone.observe(document.body, { childList: true });
-} else {
-  initGamingLayer();
-}
+})();
+
+/* ── 12. Achievement toast ──────────────────────────────── */
+(function setupAchievement() {
+  const sec = document.querySelector('#contact');
+  if (!sec) return;
+  let fired = false;
+  const io = new IntersectionObserver(entries => {
+    if (fired || !entries[0].isIntersecting) return;
+    fired = true;
+    io.disconnect();
+    const t = document.createElement('div');
+    t.className = 'ach-toast';
+    t.innerHTML = `<div class="ach-icon">🏆</div><div><div class="ach-title">ACHIEVEMENT UNLOCKED</div><div class="ach-sub">You reviewed the full engineering dossier</div></div>`;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => t.classList.add('ach-in'));
+    setTimeout(() => { t.classList.remove('ach-in'); setTimeout(() => t.remove(), 500); }, 4500);
+  }, { threshold: 0.3 });
+  io.observe(sec);
+})();
