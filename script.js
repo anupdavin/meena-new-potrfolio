@@ -690,3 +690,279 @@ function setupNavbar() {
 }
 
 setupNavbar();
+
+/* ============================================================
+   GAMING EXPERIENCE — Enhanced interactive layer
+   All effects respect prefers-reduced-motion + touch devices
+   ============================================================ */
+
+const CAN_HOVER = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+const REDUCED  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ----------------------------------------------------------
+   1. ENHANCED CURSOR — inner dot + outer ring + click pulse
+   ---------------------------------------------------------- */
+function setupEnhancedCursor() {
+  if (!CAN_HOVER) return;
+
+  const ring = document.querySelector('#cursorAura');
+  if (!ring) return;
+
+  // Inject inner dot
+  const dot = document.createElement('div');
+  dot.id = 'cursorDot';
+  document.body.appendChild(dot);
+
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let rx = mx, ry = my;
+
+  window.addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+
+  // Lerp ring toward mouse
+  (function tick() {
+    rx += (mx - rx) * 0.13;
+    ry += (my - ry) * 0.13;
+    ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+    dot.style.transform  = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+    requestAnimationFrame(tick);
+  })();
+
+  // Hover state — ring shrinks on interactive elements
+  document.addEventListener('pointerover', e => {
+    const interactive = e.target.closest('a,button,input,textarea,select,[data-project],[data-brief-lens]');
+    ring.classList.toggle('cursor-hover', !!interactive);
+    dot.classList.toggle('cursor-hover', !!interactive);
+  });
+
+  // Click pulse
+  document.addEventListener('pointerdown', () => {
+    ring.classList.add('cursor-click');
+    setTimeout(() => ring.classList.remove('cursor-click'), 400);
+  });
+}
+
+/* ----------------------------------------------------------
+   2. CLICK PARTICLE BURST on CTA buttons
+   ---------------------------------------------------------- */
+function setupClickParticles() {
+  if (REDUCED) return;
+
+  function burst(x, y, color) {
+    for (let i = 0; i < 10; i++) {
+      const p = document.createElement('span');
+      p.className = 'click-particle';
+      const angle  = (Math.PI * 2 * i) / 10;
+      const radius = 40 + Math.random() * 40;
+      p.style.cssText = `
+        left:${x}px; top:${y}px;
+        --tx:${Math.cos(angle) * radius}px;
+        --ty:${Math.sin(angle) * radius}px;
+        background:${color};
+      `;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 700);
+    }
+  }
+
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.btn,.cfp-submit,.fsb,.cfc-btn-primary,.cqa-btn');
+    if (!btn) return;
+    const color = btn.classList.contains('fsb-whatsapp') || btn.classList.contains('primary')
+      ? '#22c55e' : btn.classList.contains('fsb-linkedin') ? '#60a5fa' : '#c084fc';
+    burst(e.clientX, e.clientY, color);
+  });
+}
+
+/* ----------------------------------------------------------
+   3. 3D CARD TILT + HOLOGRAPHIC SHIMMER
+   ---------------------------------------------------------- */
+function setup3DTilt() {
+  if (!CAN_HOVER || REDUCED) return;
+
+  const TILT = 10;
+  const sel  = '.project-card,.seniority-card,.timeline-card,.brief-grid > div,.contact-cards-v2 a,.warroom-radar';
+
+  document.querySelectorAll(sel).forEach(card => {
+    card.classList.add('tilt-card');
+
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width  - 0.5;
+      const y = (e.clientY - r.top)  / r.height - 0.5;
+      card.style.transform = `perspective(700px) rotateY(${x*TILT*2}deg) rotateX(${-y*TILT*2}deg) scale(1.025) translateZ(8px)`;
+      card.style.setProperty('--sx', `${(x + 0.5) * 100}%`);
+      card.style.setProperty('--sy', `${(y + 0.5) * 100}%`);
+      card.style.setProperty('--so', '1');
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.setProperty('--so', '0');
+    });
+  });
+}
+
+/* ----------------------------------------------------------
+   4. HERO MOUSE PARALLAX — 3 depth layers
+   ---------------------------------------------------------- */
+function setupHeroParallax() {
+  if (!CAN_HOVER || REDUCED) return;
+
+  const hero = document.querySelector('#hero');
+  if (!hero) return;
+
+  const layers = [
+    { el: document.querySelector('.status-pill'),       mx: 0.035, my: 0.025 },
+    { el: document.querySelector('.glitch-title'),      mx: 0.025, my: 0.018 },
+    { el: document.querySelector('.hero-thesis'),       mx: 0.015, my: 0.012 },
+    { el: document.querySelector('.client-brief-wrap'), mx: -0.03, my: -0.02 },
+    { el: document.querySelector('.stats-grid'),        mx: 0.02,  my: 0.015 },
+  ].filter(l => l.el);
+
+  let lx = 0, ly = 0, cx = 0, cy = 0;
+
+  hero.addEventListener('mousemove', e => {
+    const r = hero.getBoundingClientRect();
+    cx = ((e.clientX - r.left) / r.width  - 0.5) * r.width;
+    cy = ((e.clientY - r.top)  / r.height - 0.5) * r.height;
+  }, { passive: true });
+
+  hero.addEventListener('mouseleave', () => { cx = 0; cy = 0; });
+
+  (function tick() {
+    lx += (cx - lx) * 0.08;
+    ly += (cy - ly) * 0.08;
+    layers.forEach(({ el, mx, my }) => {
+      el.style.transform = `translate(${lx * mx}px, ${ly * my}px)`;
+    });
+    requestAnimationFrame(tick);
+  })();
+}
+
+/* ----------------------------------------------------------
+   5. TEXT SCRAMBLE DECODE on section heading reveal
+   ---------------------------------------------------------- */
+function setupTextScramble() {
+  if (REDUCED) return;
+
+  const CHARS = '!<>-_\\/[]{}=+*^?#@$%ABCDEFGHIJKLMNOPQRSTUVWXYZ01';
+
+  function scramble(el) {
+    const orig   = el.dataset.scrambleText || el.textContent;
+    el.dataset.scrambleText = orig;
+    let frame = 0;
+    const FRAMES = 22;
+
+    const id = setInterval(() => {
+      el.textContent = orig.split('').map((ch, i) => {
+        if (ch === ' ') return ' ';
+        if (i < Math.round((frame / FRAMES) * orig.length)) return ch;
+        return CHARS[Math.floor(Math.random() * CHARS.length)];
+      }).join('');
+
+      if (frame++ >= FRAMES) { el.textContent = orig; clearInterval(id); }
+    }, 38);
+  }
+
+  // Run scramble when section headings become visible
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const h2 = entry.target.querySelector('h2');
+      if (h2) scramble(h2);
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll('.section-head').forEach(el => observer.observe(el));
+}
+
+/* ----------------------------------------------------------
+   6. ACHIEVEMENT TOAST — fires once when contact is reached
+   ---------------------------------------------------------- */
+function setupAchievementToast() {
+  const contact = document.querySelector('#contact');
+  if (!contact) return;
+
+  let fired = false;
+  const observer = new IntersectionObserver(entries => {
+    if (fired || !entries[0].isIntersecting) return;
+    fired = true;
+    observer.disconnect();
+
+    const toast = document.createElement('div');
+    toast.className = 'achievement-toast';
+    toast.innerHTML = `
+      <div class="ach-icon">🏆</div>
+      <div class="ach-body">
+        <div class="ach-title">ACHIEVEMENT UNLOCKED</div>
+        <div class="ach-sub">You reviewed the full engineering dossier</div>
+      </div>`;
+    document.body.appendChild(toast);
+
+    requestAnimationFrame(() => toast.classList.add('ach-visible'));
+    setTimeout(() => {
+      toast.classList.remove('ach-visible');
+      setTimeout(() => toast.remove(), 600);
+    }, 4500);
+  }, { threshold: 0.3 });
+
+  observer.observe(contact);
+}
+
+/* ----------------------------------------------------------
+   7. STAT COUNTER ANIMATION — numbers count up on reveal
+   ---------------------------------------------------------- */
+function setupStatCounters() {
+  if (REDUCED) return;
+
+  const counters = document.querySelectorAll('.value-row div strong, .stats-grid div strong');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el   = entry.target;
+      const text = el.textContent.trim();
+      const num  = parseFloat(text);
+      if (isNaN(num)) return;
+
+      const suffix = text.replace(String(num), '');
+      let start = 0;
+      const step = num / 30;
+      const id = setInterval(() => {
+        start = Math.min(start + step, num);
+        el.textContent = (Number.isInteger(num) ? Math.round(start) : start.toFixed(1)) + suffix;
+        if (start >= num) clearInterval(id);
+      }, 35);
+
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.8 });
+
+  counters.forEach(el => observer.observe(el));
+}
+
+// Boot-safe: run gaming effects after boot screen clears
+function initGamingLayer() {
+  setupEnhancedCursor();
+  setupClickParticles();
+  setup3DTilt();
+  setupHeroParallax();
+  setupTextScramble();
+  setupAchievementToast();
+  setupStatCounters();
+}
+
+// Wait for boot to finish (boot screen removes itself)
+const bootEl = document.querySelector('#bootScreen');
+if (bootEl) {
+  const bootDone = new MutationObserver(() => {
+    if (!document.querySelector('#bootScreen')) {
+      bootDone.disconnect();
+      setTimeout(initGamingLayer, 200);
+    }
+  });
+  bootDone.observe(document.body, { childList: true });
+} else {
+  initGamingLayer();
+}
