@@ -166,7 +166,7 @@ body:hover .cursor-aura {
 }
 
 .scanlines {
-  z-index: 50;
+  z-index: 5;
   opacity: 0.12;
   background: repeating-linear-gradient(
     to bottom,
@@ -179,7 +179,7 @@ body:hover .cursor-aura {
 }
 
 .noise {
-  z-index: 49;
+  z-index: 4;
   opacity: 0.08;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
 }
@@ -3075,49 +3075,6 @@ footer {
   to   { opacity: 1; transform: translateX(0) scale(1); }
 }
 
-/* ============================================================
-   SECTION NAV DOTS (copied from Anup's left-side dots)
-   ============================================================ */
-
-.section-dots {
-  position: fixed;
-  left: 2rem;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.sdot {
-  width: 0.5rem;
-  height: 2rem;
-  border-radius: 9999px;
-  background: #374151;
-  transition: background 300ms ease, height 300ms ease,
-              box-shadow 300ms ease, transform 300ms ease;
-  display: block;
-}
-
-.sdot:hover {
-  background: #6b7280;
-  transform: scaleY(1.15);
-}
-
-.sdot.active {
-  background: #22c55e;
-  height: 2.5rem;
-  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5),
-              0 0 20px rgba(34, 197, 94, 0.3),
-              0 0 30px rgba(34, 197, 94, 0.1);
-}
-
-/* Hide dots on small screens (Anup does hidden lg:flex) */
-@media (max-width: 1024px) {
-  .section-dots { display: none; }
-}
-
 /* On small screens move float buttons slightly in */
 @media (max-width: 480px) {
   .float-social { bottom: 1.2rem; right: 1rem; }
@@ -3186,12 +3143,7 @@ nav a.active::after {
   transform: scaleX(1);
 }
 
-/* Push page content down since topbar is now fixed */
-body > .page-wrap,
-main,
-.hero-section {
-  padding-top: 4.5rem;
-}
+
 
 /* ============================================================
    MATRIX ANIMATED BACKGROUND (copied from Anup's Layout.tsx)
@@ -3221,9 +3173,38 @@ main,
   100% { transform: translate(-50px, -50px); }
 }
 
-/* Make sure all sections render above the matrix */
-header, main, section, footer,
-.float-social, .section-dots {
-  position: relative;
-  z-index: 1;
+/* Sections stack above matrix */
+main { position: relative; z-index: 1; }
+
+/* ============================================================
+   BUG FIXES: navbar overlap, z-index, scroll margins
+   ============================================================ */
+
+/* Correct padding for fixed navbar — only on main, once */
+main {
+  padding-top: 4.5rem;
+}
+
+/* Reduce hero's own top padding since main already offsets for navbar */
+.hero {
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* Fix anchor scroll so fixed navbar doesn't cover section headings */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* Restore correct z-indices for floating UI */
+.float-social {
+  z-index: 999;
+}
+
+.section-dots {
+  z-index: 998;
+}
+
+/* matrix background stays at bottom of everything */
+.matrix-bg-wrap {
+  z-index: -5;
 }

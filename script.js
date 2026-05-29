@@ -659,33 +659,6 @@ function setupContactForm() {
 
 setupContactForm();
 
-/* ============================================================
-   SECTION NAV DOTS — active state tracking (Anup's pattern)
-   ============================================================ */
-function setupSectionDots() {
-  const dots = document.querySelectorAll('.sdot');
-  if (!dots.length) return;
-
-  const sections = ['hero','about','skills','workflow','projects','experience','contact'];
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        dots.forEach(d => {
-          d.classList.toggle('active', d.dataset.section === id);
-        });
-      }
-    });
-  }, { threshold: 0.35, rootMargin: '-80px 0px' });
-
-  sections.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) observer.observe(el);
-  });
-}
-
-setupSectionDots();
 
 /* ============================================================
    NAVBAR — scrolled class + active link (Anup's pattern)
