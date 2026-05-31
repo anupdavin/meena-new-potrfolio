@@ -1,17 +1,63 @@
-/* ============================================================
-   Meena Portfolio — script.js
-   Written against the live Codex HTML structure (2026-05-29)
-   Sections: #home #capabilities #work #experience #contact
-   Cards: .card  Timeline: .timeline-item  Contact: .contact-link
-   Hero: h1 .eyebrow .hero-subtitle .hero-copy .brief-card .proof-row
-   ============================================================ */
-
 'use strict';
-
 const CAN_HOVER = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ── 1. Reveal on scroll ────────────────────────────────── */
+/* ── 1. Ambient orb mesh (canvas) ────────────────────────── */
+(function setupOrbs() {
+  if (REDUCED) return;
+  const canvas = document.createElement('canvas');
+  canvas.id = 'orb-canvas';
+  document.body.prepend(canvas);
+  const ctx = canvas.getContext('2d');
+
+  const orbs = [
+    { x: 0.15, y: 0.2,  r: 0.35, vx: 0.00012, vy: 0.00008, color: [62,240,165,  0.12] },
+    { x: 0.75, y: 0.3,  r: 0.28, vx:-0.00009, vy: 0.00011, color: [56,217,255,  0.09] },
+    { x: 0.5,  y: 0.75, r: 0.32, vx: 0.00007, vy:-0.00009, color: [120,80, 255, 0.08] },
+    { x: 0.85, y: 0.8,  r: 0.22, vx:-0.00011, vy:-0.00007, color: [62, 240,165, 0.07] },
+  ];
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  (function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    orbs.forEach(o => {
+      o.x += o.vx; o.y += o.vy;
+      if (o.x < -0.2 || o.x > 1.2) o.vx *= -1;
+      if (o.y < -0.2 || o.y > 1.2) o.vy *= -1;
+      const cx = o.x * canvas.width;
+      const cy = o.y * canvas.height;
+      const r  = o.r * Math.min(canvas.width, canvas.height);
+      const g  = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+      const [R,G,B,A] = o.color;
+      g.addColorStop(0,   `rgba(${R},${G},${B},${A})`);
+      g.addColorStop(0.5, `rgba(${R},${G},${B},${A * 0.4})`);
+      g.addColorStop(1,   `rgba(${R},${G},${B},0)`);
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  })();
+})();
+
+/* ── 2. Inject Meena's name as massive display above h1 ──── */
+(function injectHeroName() {
+  const h1 = document.querySelector('.hero h1');
+  if (!h1) return;
+  const span = document.createElement('span');
+  span.className = 'hero-name-display';
+  span.textContent = 'Meena Kannan';
+  h1.parentNode.insertBefore(span, h1);
+})();
+
+/* ── 3. Reveal on scroll ─────────────────────────────────── */
 (function setupReveal() {
   const els = document.querySelectorAll('.reveal');
   const io  = new IntersectionObserver((entries) => {
@@ -20,171 +66,106 @@ const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       e.target.classList.add('visible');
       io.unobserve(e.target);
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   els.forEach((el, i) => {
-    if (!REDUCED) el.style.transitionDelay = `${Math.min(i % 6 * 80, 320)}ms`;
+    if (!REDUCED) el.style.transitionDelay = `${Math.min(i % 6 * 80, 300)}ms`;
     io.observe(el);
   });
 })();
 
-/* ── 2. Nav active link ─────────────────────────────────── */
-(function setupNavActive() {
+/* ── 4. Nav active + topbar scroll state ─────────────────── */
+(function setupNav() {
   const links = [...document.querySelectorAll('nav a[href^="#"]')];
-  const secs  = links.map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
-  const io    = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${e.target.id}`));
+  const bar   = document.querySelector('.topbar');
+  if (bar) window.addEventListener('scroll', () => bar.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+  const io = new IntersectionObserver(e => {
+    e.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${entry.target.id}`));
     });
   }, { threshold: 0.35 });
-  secs.forEach(s => io.observe(s));
-
-  // Navbar darkens on scroll
-  const bar = document.querySelector('.topbar');
-  if (bar) {
-    window.addEventListener('scroll', () => bar.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
-  }
+  document.querySelectorAll('section[id]').forEach(s => io.observe(s));
 })();
 
-/* ── 3. Contact form ────────────────────────────────────── */
-(function setupContactForm() {
-  const form = document.querySelector('#contactForm');
-  const note = document.querySelector('#formNote');
-  if (!form || !note) return;
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const n = form.querySelector('#name')?.value.trim();
-    const em = form.querySelector('#email')?.value.trim();
-    const m  = form.querySelector('#message')?.value.trim();
-    const c  = form.querySelector('#company')?.value.trim();
-    const t  = form.querySelector('#type')?.value;
-    if (!n || !em || !m) { note.textContent = 'Please fill name, email, and message.'; return; }
-    const sub  = encodeURIComponent(`Portfolio inquiry: ${t}${c ? ' — ' + c : ''}`);
-    const body = encodeURIComponent(`Name: ${n}\nEmail: ${em}\nCompany: ${c||'N/A'}\nOpportunity: ${t}\n\nMessage:\n${m}`);
-    window.location.href = `mailto:meenakannan92@gmail.com?subject=${sub}&body=${body}`;
-    note.textContent = 'Email draft prepared — send it from your mail app.';
-    form.reset();
-  });
-})();
-
-/* ── 4. Float-social — upgrade to SVG icons ────────────── */
+/* ── 5. Float social — SVG icon upgrade ──────────────────── */
 (function upgradeFloatSocial() {
   const wrap = document.querySelector('.float-social');
   if (!wrap) return;
-
-  const buttons = [
-    {
-      href: 'mailto:meenakannan92@gmail.com?subject=Opportunity%20from%20Portfolio',
-      label: 'Email', cls: 'fsb-email',
-      svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`
-    },
-    {
-      href: 'https://github.com/meenak95', target: '_blank', rel: 'noreferrer',
-      label: 'GitHub', cls: 'fsb-github',
-      svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>`
-    },
-    {
-      href: 'https://www.linkedin.com/in/meena-kannan-mk/', target: '_blank', rel: 'noreferrer',
-      label: 'LinkedIn', cls: 'fsb-linkedin',
-      svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`
-    },
-    {
-      href: 'https://wa.me/6587373057?text=Hi%20Meena%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect.',
-      target: '_blank', rel: 'noreferrer',
-      label: 'WhatsApp', cls: 'fsb-whatsapp',
-      svg: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>`
-    }
+  const btns = [
+    { href:'mailto:meenakannan92@gmail.com?subject=Opportunity', label:'Email', cls:'fsb-email',
+      svg:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`},
+    { href:'https://github.com/meenak95', target:'_blank', rel:'noreferrer', label:'GitHub', cls:'fsb-github',
+      svg:`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>`},
+    { href:'https://www.linkedin.com/in/meena-kannan-mk/', target:'_blank', rel:'noreferrer', label:'LinkedIn', cls:'fsb-linkedin',
+      svg:`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`},
+    { href:'https://wa.me/6587373057?text=Hi%20Meena%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect.', target:'_blank', rel:'noreferrer', label:'WhatsApp', cls:'fsb-whatsapp',
+      svg:`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>`},
   ];
-
-  wrap.innerHTML = buttons.map(b => `
-    <a class="fsb ${b.cls}" href="${b.href}"
-      ${b.target ? `target="${b.target}" rel="${b.rel}"` : ''}
-      aria-label="${b.label}">
-      ${b.svg}
-      <span class="fsb-tip">${b.label}</span>
-    </a>`).join('');
+  wrap.innerHTML = btns.map(b =>
+    `<a class="fsb ${b.cls}" href="${b.href}"${b.target ? ` target="${b.target}" rel="${b.rel}"` : ''} aria-label="${b.label}">${b.svg}<span class="fsb-tip">${b.label}</span></a>`
+  ).join('');
 })();
 
-/* ── 5. Section nav dots (injected) ────────────────────── */
-(function setupSectionDots() {
-  const sections = [
-    { id: 'home',         label: 'Home' },
-    { id: 'capabilities', label: 'Capabilities' },
-    { id: 'work',         label: 'Work' },
-    { id: 'experience',   label: 'Experience' },
-    { id: 'contact',      label: 'Contact' },
+/* ── 6. Section nav dots ─────────────────────────────────── */
+(function setupDots() {
+  const secs = [
+    {id:'home',label:'Home'},{id:'capabilities',label:'Capabilities'},
+    {id:'work',label:'Work'},{id:'experience',label:'Experience'},
+    {id:'contact',label:'Contact'},
   ];
-
   const nav = document.createElement('nav');
   nav.className = 'sdots';
-  nav.setAttribute('aria-label', 'Section navigation');
-  nav.innerHTML = sections.map(s =>
-    `<a class="sdot" href="#${s.id}" data-sid="${s.id}" aria-label="${s.label}"></a>`
-  ).join('');
+  nav.setAttribute('aria-label','Section navigation');
+  nav.innerHTML = secs.map(s => `<a class="sdot" href="#${s.id}" data-sid="${s.id}" aria-label="${s.label}"></a>`).join('');
   document.body.appendChild(nav);
-
   const dots = nav.querySelectorAll('.sdot');
-  const io   = new IntersectionObserver((entries) => {
+  const io   = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;
       dots.forEach(d => d.classList.toggle('active', d.dataset.sid === e.target.id));
     });
   }, { threshold: 0.4 });
-
-  sections.forEach(({ id }) => {
-    const el = document.getElementById(id);
-    if (el) io.observe(el);
-  });
+  secs.forEach(({ id }) => { const el = document.getElementById(id); if (el) io.observe(el); });
 })();
 
-/* ── 6. Enhanced cursor ─────────────────────────────────── */
+/* ── 7. Custom cursor ────────────────────────────────────── */
 (function setupCursor() {
   if (!CAN_HOVER) return;
-
   const dot  = document.createElement('div'); dot.id  = 'cur-dot';
   const ring = document.createElement('div'); ring.id = 'cur-ring';
   document.body.append(dot, ring);
-
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  window.addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
-
+  let mx=window.innerWidth/2, my=window.innerHeight/2, rx=mx, ry=my;
+  window.addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; }, { passive:true });
   (function tick() {
-    rx += (mx - rx) * 0.13;
-    ry += (my - ry) * 0.13;
+    rx += (mx-rx)*0.13; ry += (my-ry)*0.13;
     dot.style.transform  = `translate(${mx}px,${my}px)`;
     ring.style.transform = `translate(${rx}px,${ry}px)`;
     requestAnimationFrame(tick);
   })();
-
   document.addEventListener('pointerover', e => {
     const hot = !!e.target.closest('a,button,input,textarea,select');
     ring.classList.toggle('ring-hot', hot);
   });
-
   document.addEventListener('pointerdown', () => {
     ring.classList.add('ring-click');
     setTimeout(() => ring.classList.remove('ring-click'), 420);
   });
 })();
 
-/* ── 7. 3D card tilt + holographic shimmer ──────────────── */
+/* ── 8. 3D tilt + holographic shimmer ────────────────────── */
 (function setup3DTilt() {
   if (!CAN_HOVER || REDUCED) return;
-
-  const sel = '.card, .timeline-item, .contact-link, .brief-card, .proof-card, .signal';
-  document.querySelectorAll(sel).forEach(card => {
+  document.querySelectorAll('.card,.timeline-item,.contact-link,.brief-card,.proof-card').forEach(card => {
     card.classList.add('tilt');
-
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width  - 0.5;
-      const y = (e.clientY - r.top)  / r.height - 0.5;
-      card.style.transform = `perspective(700px) rotateY(${x * 16}deg) rotateX(${-y * 16}deg) scale(1.025) translateZ(6px)`;
-      card.style.setProperty('--sx', `${(x + 0.5) * 100}%`);
-      card.style.setProperty('--sy', `${(y + 0.5) * 100}%`);
+      const x = (e.clientX-r.left)/r.width  - 0.5;
+      const y = (e.clientY-r.top) /r.height - 0.5;
+      card.style.transform = `perspective(700px) rotateY(${x*16}deg) rotateX(${-y*16}deg) scale(1.025) translateZ(6px)`;
+      card.style.setProperty('--sx', `${(x+0.5)*100}%`);
+      card.style.setProperty('--sy', `${(y+0.5)*100}%`);
       card.style.setProperty('--so', '1');
     });
-
     card.addEventListener('mouseleave', () => {
       card.style.transform = '';
       card.style.setProperty('--so', '0');
@@ -192,44 +173,51 @@ const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   });
 })();
 
-/* ── 8. Hero mouse parallax ─────────────────────────────── */
+/* ── 9. Hero mouse parallax ──────────────────────────────── */
 (function setupParallax() {
   if (!CAN_HOVER || REDUCED) return;
   const hero = document.querySelector('.hero');
   if (!hero) return;
-
   const layers = [
-    { sel: '.eyebrow',      mx:  0.03, my:  0.02 },
-    { sel: 'h1',            mx:  0.022,my:  0.016 },
-    { sel: '.hero-subtitle',mx:  0.014,my:  0.01  },
-    { sel: '.hero-copy',    mx:  0.01, my:  0.007 },
-    { sel: '.brief-card',   mx: -0.028,my: -0.02  },
-    { sel: '.proof-row',    mx:  0.018,my:  0.013 },
-  ].map(l => ({ el: hero.querySelector(l.sel), ...l })).filter(l => l.el);
+    { sel:'.hero-name-display', mx:0.035, my:0.025 },
+    { sel:'h1',                  mx:0.022, my:0.016 },
+    { sel:'.hero-subtitle',      mx:0.014, my:0.010 },
+    { sel:'.brief-card',         mx:-0.03, my:-0.02 },
+    { sel:'.proof-row',          mx:0.018, my:0.013 },
+  ].map(l => ({ el:hero.querySelector(l.sel), ...l })).filter(l=>l.el);
 
-  let cx = 0, cy = 0, lx = 0, ly = 0;
+  let cx=0, cy=0, lx=0, ly=0;
   hero.addEventListener('mousemove', e => {
     const r = hero.getBoundingClientRect();
-    cx = (e.clientX - r.left  - r.width  / 2);
-    cy = (e.clientY - r.top   - r.height / 2);
-  }, { passive: true });
-  hero.addEventListener('mouseleave', () => { cx = 0; cy = 0; });
-
+    cx = e.clientX - r.left  - r.width/2;
+    cy = e.clientY - r.top   - r.height/2;
+  }, { passive:true });
+  hero.addEventListener('mouseleave', () => { cx=0; cy=0; });
   (function tick() {
-    lx += (cx - lx) * 0.08;
-    ly += (cy - ly) * 0.08;
-    layers.forEach(({ el, mx, my }) => {
-      el.style.transform = `translate(${lx * mx}px,${ly * my}px)`;
-    });
+    lx += (cx-lx)*0.08; ly += (cy-ly)*0.08;
+    layers.forEach(({el,mx,my}) => { el.style.transform = `translate(${lx*mx}px,${ly*my}px)`; });
     requestAnimationFrame(tick);
   })();
 })();
 
-/* ── 9. Text scramble on section heading reveal ─────────── */
+/* ── 10. Magnetic primary button ─────────────────────────── */
+(function setupMagneticBtns() {
+  if (!CAN_HOVER || REDUCED) return;
+  document.querySelectorAll('.btn.primary').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const r = btn.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width/2)  * 0.28;
+      const y = (e.clientY - r.top  - r.height/2) * 0.35;
+      btn.style.transform = `translate(${x}px,${y}px) translateY(-2px)`;
+    });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+  });
+})();
+
+/* ── 11. Text scramble on section headings ───────────────── */
 (function setupScramble() {
   if (REDUCED) return;
   const CHARS = '!<>-_\\/[]{}=+*^?#@$%ABCDEFGHIJKLMNOPQRSTUVWXYZ01';
-
   function scramble(el) {
     const orig = el.dataset.orig || el.textContent;
     el.dataset.orig = orig;
@@ -238,13 +226,12 @@ const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const id = setInterval(() => {
       el.textContent = orig.split('').map((ch, i) => {
         if (ch === ' ') return ' ';
-        if (i < Math.round((frame / FRAMES) * orig.length)) return ch;
+        if (i < Math.round((frame/FRAMES) * orig.length)) return ch;
         return CHARS[Math.floor(Math.random() * CHARS.length)];
       }).join('');
       if (++frame > FRAMES) { el.textContent = orig; clearInterval(id); }
     }, 36);
   }
-
   const io = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
@@ -253,17 +240,16 @@ const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       io.unobserve(entry.target);
     });
   }, { threshold: 0.4 });
-
   document.querySelectorAll('.section-head').forEach(el => io.observe(el));
 })();
 
-/* ── 10. Stat counter animation ─────────────────────────── */
+/* ── 12. Stat counters ───────────────────────────────────── */
 (function setupCounters() {
   if (REDUCED) return;
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;
-      const el   = e.target;
+      const el = e.target;
       const text = el.textContent.trim();
       const num  = parseFloat(text);
       if (isNaN(num)) return;
@@ -281,21 +267,20 @@ const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll('.proof-card strong').forEach(el => io.observe(el));
 })();
 
-/* ── 11. Click particle burst ───────────────────────────── */
+/* ── 13. Click particle burst ────────────────────────────── */
 (function setupParticles() {
   if (REDUCED) return;
   document.addEventListener('click', e => {
-    const btn = e.target.closest('.btn, .fsb, .nav-cta');
+    const btn = e.target.closest('.btn,.fsb,.nav-cta');
     if (!btn) return;
     const color = btn.classList.contains('fsb-whatsapp') ? '#22c55e'
                 : btn.classList.contains('fsb-linkedin')  ? '#60a5fa'
-                : btn.classList.contains('fsb-email')     ? '#c084fc'
-                : '#3ef0a5';
+                : btn.classList.contains('fsb-email')     ? '#c084fc' : '#3ef0a5';
     for (let i = 0; i < 10; i++) {
       const p = document.createElement('span');
       p.className = 'px-particle';
-      const angle = (Math.PI * 2 * i) / 10;
-      const r = 40 + Math.random() * 36;
+      const angle = (Math.PI*2*i)/10;
+      const r = 40 + Math.random()*36;
       p.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;--tx:${Math.cos(angle)*r}px;--ty:${Math.sin(angle)*r}px;background:${color}`;
       document.body.appendChild(p);
       setTimeout(() => p.remove(), 650);
@@ -303,15 +288,14 @@ const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   });
 })();
 
-/* ── 12. Achievement toast ──────────────────────────────── */
+/* ── 14. Achievement toast ───────────────────────────────── */
 (function setupAchievement() {
   const sec = document.querySelector('#contact');
   if (!sec) return;
   let fired = false;
   const io = new IntersectionObserver(entries => {
     if (fired || !entries[0].isIntersecting) return;
-    fired = true;
-    io.disconnect();
+    fired = true; io.disconnect();
     const t = document.createElement('div');
     t.className = 'ach-toast';
     t.innerHTML = `<div class="ach-icon">🏆</div><div><div class="ach-title">ACHIEVEMENT UNLOCKED</div><div class="ach-sub">You reviewed the full engineering dossier</div></div>`;
@@ -320,4 +304,25 @@ const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     setTimeout(() => { t.classList.remove('ach-in'); setTimeout(() => t.remove(), 500); }, 4500);
   }, { threshold: 0.3 });
   io.observe(sec);
+})();
+
+/* ── 15. Contact form ─────────────────────────────────────── */
+(function setupContactForm() {
+  const form = document.querySelector('#contactForm');
+  const note = document.querySelector('#formNote');
+  if (!form || !note) return;
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const n  = form.querySelector('#name')?.value.trim();
+    const em = form.querySelector('#email')?.value.trim();
+    const m  = form.querySelector('#message')?.value.trim();
+    const c  = form.querySelector('#company')?.value.trim() || '';
+    const t  = form.querySelector('#type')?.value || '';
+    if (!n || !em || !m) { note.textContent = 'Please fill name, email and message.'; return; }
+    const sub  = encodeURIComponent(`Portfolio enquiry: ${t}${c ? ' — '+c : ''}`);
+    const body = encodeURIComponent(`Name: ${n}\nEmail: ${em}\nCompany: ${c||'N/A'}\nType: ${t}\n\n${m}`);
+    window.location.href = `mailto:meenakannan92@gmail.com?subject=${sub}&body=${body}`;
+    note.textContent = 'Email draft ready — send from your mail app.';
+    form.reset();
+  });
 })();
